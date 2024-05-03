@@ -1,0 +1,15 @@
+{
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon src/server.js",
+    "start": "nodemon src/server.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.1",
+    "express": "^4.19.2",
+    "mongoose": "^7.6.11",
+    "react-router-dom": "^6.23.0",
+    "jsonwebtoken": "^9.0.2"
+  }
+}
