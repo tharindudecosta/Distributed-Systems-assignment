@@ -1,20 +1,50 @@
 const Course = require("../models/Course");
 const User = require("../models/User");
+const mongoose = require("mongoose");
+
 
 const createCourse = async (req, res) => {
   try {
     const { name, description, instructorId, price } = req.body;
+    console.log(req.file);
+
+    let emptyFields = [];
+
+    if (!req.file) {
+      emptyFields.push("file");
+    } else {
+      file = req.file.path;
+    }
+
+    if (!name) {
+      emptyFields.push("name");
+    }
+    if (!instructorId) {
+      emptyFields.push("instructorId");
+    }
+    if (!price) {
+      emptyFields.push("price");
+    }
+    if (!description) {
+      emptyFields.push("description");
+    }
+    if (emptyFields.length > 0) {
+      return res
+        .status(400)
+        .json({ error: "Please fill in all the fields", emptyFields });
+    }
+
     const instructor = await User.findById(instructorId);
     if (!instructor) {
       return res.status(404).json({ message: "Instructor not found" });
     }
 
     const newCourse = new Course({
-      name:name,
-      description:description,
-      credits,
+      name: name,
+      description: description,
       instructor: instructorId,
-      price:price
+      price: price,
+      file: file,
     });
     await newCourse.save();
 
@@ -27,54 +57,102 @@ const createCourse = async (req, res) => {
 };
 
 const getCourses = async (req, res) => {
-  try {
-    const courses = await Course.find().populate("faculty", "name");
-    res.status(200).json(courses);
-  } catch (err) {
-    res.status(500).json({ message: err.message });
+  const courses = await Course.find({}).sort({ createdAt: -1 });
+
+  res.status(200).json(courses);
+};
+
+const getCourseRecord = async (req, res) => {
+  const { id } = req.params;
+
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(404).json({ error: "No such course" });
   }
+
+  const course = await Course.findById(id);
+
+  if (!course) {
+    return res.status(404).json({ error: "No such course" });
+  }
+
+  res.status(200).json(course);
 };
 
 const updateCourse = async (req, res) => {
-  try {
-    const { name, code, description, credits, facultyId } = req.body;
-    const course = await Course.findById(req.params.id);
-    if (!course) {
-      return res.status(404).json({ message: "Course not found" });
+  const { name, description, instructorId, price } = req.body;
+  console.log(req.file);
+
+  let emptyFields = [];
+
+  if (!req.file) {
+    emptyFields.push("file");
+  } else {
+    file = req.file.path;
+  }
+
+  if (!name) {
+    emptyFields.push("name");
+  }
+  if (!instructorId) {
+    emptyFields.push("instructorId");
+  }
+  if (!price) {
+    emptyFields.push("price");
+  }
+  if (!description) {
+    emptyFields.push("description");
+  }
+  if (emptyFields.length > 0) {
+    return res
+      .status(400)
+      .json({ error: "Please fill in all the fields", emptyFields });
+  }
+
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(404).json({ error: "No such course" });
+  }
+
+  const course = await Course.findOneAndUpdate(
+    { _id: id },
+    {
+      ...req.body,
     }
+  );
 
-    // const faculty = await User.findById(facultyId);
-    // if (!faculty) {
-    //   return res.status(404).json({ message: "Faculty not found" });
-    // }
-
-    course.name = name || course.name;
-    course.code = code || course.code;
-    course.description = description || course.description;
-    course.credits = credits || course.credits;
-    course.faculty = facultyId || course.faculty;
-
-    await course.save();
-
-    res.status(200).json({ message: "Course updated successfully", course });
-  } catch (err) {
-    res.status(500).json({ message: err.message });
+  if (!course) {
+    return res.status(404).json({ error: "No such course" });
   }
 };
 
 const deleteCourse = async (req, res) => {
-  try {
-    const course = await Course.findById(req.params.id);
-    if (!course) {
-      return res.status(404).json({ message: "Course not found" });
-    }
+  const { id } = req.params
 
-    await course.deleteOne();
-
-    res.status(200).json({ message: "Course deleted successfully" });
-  } catch (err) {
-    res.status(500).json({ message: err.message });
+  if(!mongoose.Types.ObjectId.isValid(id)){
+      return res.status(404).json({error: 'No such course'})
   }
+
+  const course = await Course.findOneAndDelete({_id: id})
+
+  if(!course){
+      return res.status(404).json({error: 'No such course'})
+  }
+
+  res.status(200).json(course)
 };
 
-module.exports = { createCourse, getCourses, updateCourse, deleteCourse };
+const getInstructorAllCourses = async (req, res) => {
+  const { instructorId } = req.params;
+  const userAttendanceRecords = await attendance
+    .find({ instructor: instructorId })
+    .sort({ createdAt: -1 });
+  res.status(200).json(userAttendanceRecords);
+};
+
+module.exports = {
+  createCourse,
+  getCourses,
+  updateCourse,
+  deleteCourse,
+  getCourseRecord,
+  getInstructorAllCourses,
+};
