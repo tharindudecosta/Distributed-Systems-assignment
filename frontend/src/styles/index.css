@@ -1,0 +1,110 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+:root {
+  --primary: #1aac83;
+  --error: #e7195a;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+.container {
+  background-color: 	#7094d1;
+}
+
+.dropdown:hover .absolute {
+  display: block;
+}
+
+/* Tailwind CSS classes for the dropdown styles */
+.dropdown-menu {
+  display: none; /* Initially hidden */
+}
+
+.tile-text {
+  display: flex;
+  align-items: center;
+  position: relative;
+  left: 5%;
+}
+
+/* .tile-icon {
+  display: flex;
+  align-items: center;
+  position: relative;
+  left: 5%;
+  top: 15%;
+} */
+
+.tiles-common {
+  /* float: left; */
+  width: 30%;
+  margin: 15px;
+  height: 125px;
+  font-size: 28px;
+  color: white;
+  border-radius: 15px;
+  transition: transform 0.3s;
+}
+.tiles-common:hover {
+  transform: scale(1.05);
+  cursor: pointer;
+  box-shadow: 0 8px 32px -4px #2b3644;
+  transition: transform 0.6s;
+}
+
+.leave-planner-tile {
+  background-color: #07837d;
+}
+
+div.error {
+  padding: 10px;
+  background: #ffefef;
+  border: 1px solid var(--error);
+  color: var(--error);
+  border-radius: 4px;
+  margin: 20px 0;
+}
+input.error {
+  border: 1px solid var(--error);
+}
+
+div.error1 {
+  padding: 10px;
+  /* background: #ffefef; */
+  /* border: 1px solid var(--error); */
+  color: #e70d0d;
+  border-radius: 4px;
+  margin-bottom: 20px;
+}
+input.error1 {
+  border: 1px solid var(--error);
+}
+
+.background{
+  height: 100%;
+  width: 100%;
+  float: left;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  padding: none;
+  position: fixed;
+  object-fit: cover;
+  z-index: -1;
+}

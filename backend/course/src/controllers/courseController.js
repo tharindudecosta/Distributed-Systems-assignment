@@ -5,17 +5,9 @@ const mongoose = require("mongoose");
 
 const createCourse = async (req, res) => {
   try {
-    const { name, description, instructorId, price } = req.body;
-    console.log(req.file);
-
+    const { name, description, instructorId, price ,file } = req.body;
     let emptyFields = [];
-
-    if (!req.file) {
-      emptyFields.push("file");
-    } else {
-      file = req.file.path;
-    }
-
+    
     if (!name) {
       emptyFields.push("name");
     }
@@ -33,6 +25,7 @@ const createCourse = async (req, res) => {
         .status(400)
         .json({ error: "Please fill in all the fields", emptyFields });
     }
+    console.log("wdvsdvsvsvsvs");
 
     const instructor = await User.findById(instructorId);
     if (!instructor) {
@@ -45,6 +38,7 @@ const createCourse = async (req, res) => {
       instructor: instructorId,
       price: price,
       file: file,
+      status:"Active"
     });
     await newCourse.save();
 

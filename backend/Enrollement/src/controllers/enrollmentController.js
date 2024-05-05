@@ -4,35 +4,43 @@ const Course = require("../models/Course");
 
 // Controller function to enroll a student in a course
 const enrollStudent = async (req, res) => {
-  try {
-    const { studentId, courseId } = req.body;
-    const student = await User.findById(studentId);
-    const course = await Course.findById(courseId);
+  const { studentId, courseId } =
+    req.body;
+  console.log(req.body);
 
-    if (!student || !course) {
-      return res.status(404).json({ message: "Student or course not found" });
+  let emptyFields = [];
+
+  if (!studentId) {
+    emptyFields.push("studentId");
+  }
+  if (!courseId) {
+    emptyFields.push("courseId");
+  }
+  if (emptyFields.length > 0) {
+    return res
+      .status(400)
+      .json({ error: "Please fill in all the fields", emptyFields });
+  }
+
+  const enrolledRows = await Enrollment.find({
+    studentId: studentId,
+    courseId: courseId
+  });
+
+  if (enrolledRows.length > 0) {
+    res.status(400).json({ error: "You are already enrolled" });
+  } else {
+    try {
+      const enrolledCourse = await Enrollment.create({
+        studentId: studentId,
+        courseId: courseId,
+        dateEnrolled: new Date()
+      });
+      res.status(200).json({ enrolledCourse });
+    } catch (error) {
+      console.log(error);
+      res.status(400).json({ error: "Something went wrong" });
     }
-
-    const existingEnrollment = await Enrollment.findOne({ "student._id": studentId, "course._id": courseId });
-
-    if (existingEnrollment) {
-      return res.status(400).json({ message: "Student is already enrolled in this course" });
-    }
-
-    const newEnrollment = new Enrollment({
-      student: { _id: studentId, name: student.name },
-      course: { _id: courseId, name: course.name },
-    });
-
-    await newEnrollment.save();
-
-    // Remove the __v field from the response
-    const enrollmentResponse = newEnrollment.toObject();
-    delete enrollmentResponse.__v;
-
-    res.status(201).json({ message: "Student enrolled successfully" });
-  } catch (err) {
-    res.status(500).json({ message: err.message });
   }
 };
 
@@ -46,20 +54,26 @@ const getEnrollments = async (req, res) => {
   }
 };
 
-// Controller function to drop an enrollment
-const dropEnrollment = async (req, res) => {
-  try {
-    const enrollment = await Enrollment.findById(req.params.id);
-    if (!enrollment) {
-      return res.status(404).json({ message: "Enrollment not found" });
-    }
+const getEnrolledCourse = async (req, res) => {
+  const { id } = req.params;
 
-    await enrollment.deleteOne();
-
-    res.status(200).json({ message: "Enrollment dropped successfully" });
-  } catch (err) {
-    res.status(500).json({ message: err.message });
+  const enrolledRows = await Enrollment.find({studentId: id});
+  if(enrolledRows.length === 0){
+      return res.status(400).json({error: "You have no enrollments"})
   }
-};
+  else{
 
-module.exports = { enrollStudent, getEnrollments, dropEnrollment };
+      let courseCodes = []
+
+      enrolledRows.forEach((enrolledRow)=>{
+          courseCodes.push(enrolledRow.courseId)
+      })
+
+      const enrolledCourses = await Course.find({_id: {$in: courseCodes}});
+
+      return res.status(200).json(enrolledCourses)
+  }
+}
+
+
+module.exports = { enrollStudent, getEnrollments, getEnrolledCourse };
