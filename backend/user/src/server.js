@@ -19,9 +19,8 @@ app.use(express.json());
 app.use(cors())
 
 // routes
-app.post('/', (req, res) => {
-  const { name } = req.body;
-  res.json({mssg: 'Welcome to the User service '+ name })
+app.get('/', (req, res) => {
+  res.json({mssg: 'Welcome to the User service'})
 })
 
 app.use("/users", userRoutes);

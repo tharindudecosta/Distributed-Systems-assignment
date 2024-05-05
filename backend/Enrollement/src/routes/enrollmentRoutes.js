@@ -7,8 +7,8 @@ const authorizations = require("../middlewares/authorizations");
 // router.get("/", enrollmentController.getEnrollments);
 // router.delete("/:id", authorizations.isStudent, enrollmentController.dropEnrollment);
 
-router.post("/", authorizations.isStudent, enrollmentController.enrollStudent);
-router.get("/", enrollmentController.getEnrollments);
-router.delete("/:id", authorizations.isStudent, enrollmentController.dropEnrollment);
+router.post("/enroll", enrollmentController.enrollStudent);
+router.get("/all", enrollmentController.getEnrollments);
+router.get("/:id", enrollmentController.getEnrolledCourse);
 
 module.exports = router;

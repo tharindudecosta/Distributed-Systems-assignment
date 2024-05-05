@@ -1,0 +1,68 @@
+[{
+  "_id": {
+    "$oid": "6442d28e1a44e2243c204d57"
+  },
+  "name": "Angular",
+  "courseCode": "AN002",
+  "duration": 6.4,
+  "description": "Create device-independent Angular applications. Develop Components using TypeScript, Templates, and Decorators. Consume REST services using Observables. Modularize applications with the Component Router. A great course for beginners. ",
+  "file": "uploads\\thumbnails\\Angular.png",
+  "createdAt": {
+    "$date": "2023-04-21T18:14:38.990Z"
+  },
+  "updatedAt": {
+    "$date": "2023-04-22T07:44:59.078Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6444047f428869369ea17c41"
+  },
+  "name": "Backend Development - Advance",
+  "courseCode": "BK004",
+  "duration": 23.7,
+  "description": "Advance is a course designed for experienced programmers seeking to enhance their skills in developing and deploying scalable, secure, and high-performance applications. The course covers advanced topics such as database management, server-side caching, load balancing, and security protocols. Participants will also learn how to use modern backend frameworks and libraries such as Node.js, Django, and Ruby on Rails, and gain hands-on experience in building RESTful APIs and microservices. This course is ideal for professionals looking to advance their careers in web development, cloud computing, or DevOps.",
+  "file": "uploads\\thumbnails\\Backend - Advance.jpg",
+  "createdAt": {
+    "$date": "2023-04-22T15:59:59.828Z"
+  },
+  "updatedAt": {
+    "$date": "2023-04-22T15:59:59.828Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "644404a8428869369ea17c47"
+  },
+  "name": "CSS",
+  "courseCode": "CS005",
+  "duration": 4.4,
+  "description": "This CSS course is designed to teach students how to use Cascading Style Sheets (CSS) to style and layout web pages. Topics covered include selectors, box model, typography, responsive design, and advanced techniques like animations and transitions. Ideal for aspiring web developers and designers looking to enhance their skills.",
+  "file": "uploads\\thumbnails\\CSS.png",
+  "createdAt": {
+    "$date": "2023-04-22T16:00:40.910Z"
+  },
+  "updatedAt": {
+    "$date": "2023-04-23T03:34:10.099Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6444d6efcfdd037eea58688f"
+  },
+  "name": "Backend Development",
+  "courseCode": "BK006",
+  "duration": 18,
+  "description": "This is a beginner course intended for learners eager to learn the fundamentals of web development. To succeed in this course, you do not need prior web development experience, only basic internet navigation skills and an eagerness to get started with coding.",
+  "file": "uploads\\thumbnails\\Backend.png",
+  "createdAt": {
+    "$date": "2023-04-23T06:57:51.733Z"
+  },
+  "updatedAt": {
+    "$date": "2023-04-24T07:51:56.653Z"
+  },
+  "__v": 0
+}]

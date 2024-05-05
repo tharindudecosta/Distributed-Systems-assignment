@@ -12,6 +12,10 @@ const courseSchema = new Schema(
       type: String,
       required: true,
     },
+    file: {
+      type: String,
+      required: [true, "Provide an image"],
+    },
     instructor: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
@@ -19,9 +23,6 @@ const courseSchema = new Schema(
     },
     price: { type: Number, required: true },
     status: { type: String, required: true, default: "Active" },
-    file: {
-      type: String
-    }
   },
   { timestamps: true }
 );

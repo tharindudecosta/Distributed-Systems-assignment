@@ -7,7 +7,7 @@ const JWT_EXPIRES_IN="1h"
 
 const register = async (req, res) => {
   try {
-    const { name, email,phone, password, role } = req.body;
+    const { name, email, phone, password, role } = req.body;
     
     const existingUser = await User.findOne({ email });
     if (existingUser) {
@@ -15,7 +15,7 @@ const register = async (req, res) => {
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
-    const newUser = new User({ name:name, email:email, phone:phone, password: hashedPassword, role:rolerole });
+    const newUser = new User({ name:name, email:email, phone:phone, password: hashedPassword, role:role });
     await newUser.save();
 
     res.status(201).json({ message: "User registered successfully" });
