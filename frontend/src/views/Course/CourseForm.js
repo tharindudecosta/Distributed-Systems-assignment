@@ -52,7 +52,7 @@ const CourseForm = () => {
             file: imageInfo
           };
           console.log(newCourse);
-          const response = axios.post("http://localhost:4000/api/courseService/courses/newCourse", newCourse)
+          const response = await axios.post("http://localhost:4000/api/courseService/courses/newCourse", newCourse)
           
           if (response.status == 200){
             console.log(response)
@@ -60,7 +60,6 @@ const CourseForm = () => {
             
         } catch (error) {
           console.error(error);
-          throw new error("Course error");
         }
 
       } else{
@@ -68,7 +67,6 @@ const CourseForm = () => {
       }
     } catch (error) {
       console.error(error);
-      throw new error("Cloud error");
     }
 
 

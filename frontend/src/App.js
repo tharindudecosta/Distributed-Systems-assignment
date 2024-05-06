@@ -10,6 +10,8 @@ import RegisterUser from './views/Login/RegisterUser'
 import CourseForm from './views/Course/CourseForm'
 import AllCourses from './views/Course/AllCourses'
 import AllCoursesIns from './views/Course/AllCoursesIns'
+import CoursePurchase from './views/Course/CoursePurchase'
+import AllCoursesStu from './views/Course/AllCoursesStu'
 
 function App() {
 
@@ -27,6 +29,8 @@ function App() {
             <Route path='/CourseForm' element={<CourseForm />} />
             <Route path='/allcourses' element={<AllCourses />} />
             <Route path='/inscourse' element={<AllCoursesIns />} />
+            <Route path='/stucourse' element={<AllCoursesStu />} />
+            <Route path='/coursePurchase/:id' element={<CoursePurchase />} />
           </Routes>
         </div>
       </BrowserRouter>

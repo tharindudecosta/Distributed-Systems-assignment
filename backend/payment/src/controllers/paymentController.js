@@ -6,7 +6,7 @@ const Payment = require("../models/Payment")
 const createPayment = async (req, res) => {
   try {
     const { studentId, courseId, amount, status } = req.body;
-
+    console.log(courseId);
     let emptyFields = [];
 
     if (!studentId) {
@@ -47,7 +47,7 @@ const createPayment = async (req, res) => {
     console.log(newPayment);
     
     res
-      .status(201)
+      .status(200)
       .json({ message: "Payment created successfully", Payment: newPayment });
   } catch (err) {
     console.log(err);
