@@ -20,8 +20,15 @@ const courseSchema = new Schema(
     price: { type: Number, required: true },
     status: { type: String, required: true, default: "Active" },
     file: {
-      type: String
-    }
+      public_id: {
+        type: String,
+        required: true,
+      },
+      url: {
+        type: String,
+        required: true,
+      },
+    },
   },
   { timestamps: true }
 );
