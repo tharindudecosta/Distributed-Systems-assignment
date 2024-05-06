@@ -87,11 +87,11 @@ const CoursesView = ({ course }) => {
               <button>Buy now</button>
             </a>
             <br />
-            <button className="redButton" onClick={handleClick}>
-              Delete
-            </button>
+            <button onClick={handleClick}>Delete</button>
             <br />
-            <button className="redButton">Update</button>
+            <a href={"/CourseUpdate/" + course._id}>
+              <button className="blueButton">Update</button>
+            </a>
           </td>
         </tr>
       </table>
