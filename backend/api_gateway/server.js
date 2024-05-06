@@ -29,6 +29,9 @@ app.use((req, res, next) => {
 
 app.use('/api/userSevice',proxy('http://localhost:4001'))
 app.use('/api/courseService',proxy('http://localhost:4002'))
+app.use('/api/courseContentService',proxy('http://localhost:4003'))
+app.use('/api/enrollmentService',proxy('http://localhost:4004'))
+app.use('/api/paymentService',proxy('http://localhost:4005'))
 
 
 // routes

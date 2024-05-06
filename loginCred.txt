@@ -1,0 +1,23 @@
+{
+    "name":"Peter",
+    "email":"peter@mail.com",
+    "phone":"0113456902",
+    "password":"peter123",
+    "role":"student"
+}
+
+{
+    "name":"Chameera",
+    "email":"cham@mail.com",
+    "phone":"0116456902",
+    "password":"cham123",
+    "role":"admin"
+}
+
+{
+    "name":"chopra",
+    "email":"chopra@mail.com",
+    "phone":"0117456902",
+    "password":"chopra123",
+    "role":"instructor"
+}

@@ -7,7 +7,10 @@ const createCourse = async (req, res) => {
   try {
     const { name, description, instructorId, price ,file } = req.body;
     let emptyFields = [];
-    
+
+    if (!file) {
+      emptyFields.push("file");
+    }
     if (!name) {
       emptyFields.push("name");
     }
@@ -25,14 +28,13 @@ const createCourse = async (req, res) => {
         .status(400)
         .json({ error: "Please fill in all the fields", emptyFields });
     }
-    console.log("wdvsdvsvsvsvs");
 
     const instructor = await User.findById(instructorId);
     if (!instructor) {
       return res.status(404).json({ message: "Instructor not found" });
     }
 
-    const newCourse = new Course({
+    const newCourse = await Course.create({
       name: name,
       description: description,
       instructor: instructorId,
@@ -40,19 +42,21 @@ const createCourse = async (req, res) => {
       file: file,
       status:"Active"
     });
-    await newCourse.save();
+    console.log("adfsfbhjm,");
 
+    console.log(newCourse);
+    
     res
       .status(201)
       .json({ message: "Course created successfully", course: newCourse });
   } catch (err) {
-    res.status(500).json({ message: err.message });
+    console.log(err);
+    res.status(400).json({ message: err.message });
   }
 };
 
 const getCourses = async (req, res) => {
   const courses = await Course.find({}).sort({ createdAt: -1 });
-
   res.status(200).json(courses);
 };
 
@@ -73,17 +77,16 @@ const getCourseRecord = async (req, res) => {
 };
 
 const updateCourse = async (req, res) => {
-  const { name, description, instructorId, price } = req.body;
-  console.log(req.file);
+  const { id, name, description, instructorId, price,file } = req.body;
 
   let emptyFields = [];
 
-  if (!req.file) {
-    emptyFields.push("file");
-  } else {
-    file = req.file.path;
+  if (!id) {
+    emptyFields.push("id");
   }
-
+  if (!file) {
+    emptyFields.push("file");
+  }
   if (!name) {
     emptyFields.push("name");
   }
@@ -119,7 +122,7 @@ const updateCourse = async (req, res) => {
 };
 
 const deleteCourse = async (req, res) => {
-  const { id } = req.params
+  const { id } = req.body
 
   if(!mongoose.Types.ObjectId.isValid(id)){
       return res.status(404).json({error: 'No such course'})
@@ -135,11 +138,14 @@ const deleteCourse = async (req, res) => {
 };
 
 const getInstructorAllCourses = async (req, res) => {
-  const { instructorId } = req.params;
-  const userAttendanceRecords = await attendance
-    .find({ instructor: instructorId })
+  const { id } = req.params;
+  const objectId = new mongoose.Types.ObjectId(id);
+
+  const courseRecords = await Course
+    .find({ instructor: objectId })
     .sort({ createdAt: -1 });
-  res.status(200).json(userAttendanceRecords);
+  
+  res.status(200).json(courseRecords);
 };
 
 module.exports = {

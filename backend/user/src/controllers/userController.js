@@ -1,6 +1,7 @@
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const User = require("../models/User");
+const mongoose = require("mongoose");
 
 const JWT_SECRET="shashi"
 const JWT_EXPIRES_IN="1h"
@@ -51,4 +52,18 @@ const login = async (req, res) => {
   }
 };
 
-module.exports = { register, login };
+const getUser = async (req,res) =>{
+  const { id } = req.params;
+  const objectId = new mongoose.Types.ObjectId(id);
+
+  try {
+    const userRecord = await User.findById(objectId)
+    res.status(200).json(userRecord);
+  } catch (error) {
+    console.log(error);
+    res.status(400).json({ message: error.message });
+  }
+
+}
+
+module.exports = { register, login,getUser };

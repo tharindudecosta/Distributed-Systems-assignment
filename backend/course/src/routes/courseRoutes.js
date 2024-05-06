@@ -17,6 +17,6 @@ router.post("/upload", uploadfile.single("file"), (req, res) => {
 router.post("/newCourse", courseController.createCourse);
 router.put("/:id", courseController.updateCourse);
 router.delete("/:id", courseController.deleteCourse);
-router.get("/:instructorId", courseController.getInstructorAllCourses);
+router.get("/instructor/:id", courseController.getInstructorAllCourses);
 
 module.exports = router;

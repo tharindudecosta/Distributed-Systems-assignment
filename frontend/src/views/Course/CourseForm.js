@@ -1,17 +1,16 @@
 import { useState } from "react";
-import { useCoursesContext } from "../../hooks/useCoursesContext";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const CourseForm = () => {
-  const { dispatch } = useCoursesContext();
-
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
-  const [file, setFile] = useState(null);
   const [instructorId, setInstructorId] = useState("");
   const [price, setPrice] = useState("");
+  const [file, setFile] = useState(null);
+  const [fileUrl, setFileUrl] = useState(null);
+  const [fileId, setFileId] = useState(null);
 
   const [error, setError] = useState(null);
   const [emptyFields, setEmptyFields] = useState([]);
@@ -19,45 +18,60 @@ const CourseForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // const course = {name, description, file,instructorId,price}
-    // console.log(course);
-    // let data = new FormData();
-    // data.append('name', course.name);
-    // data.append('instructorId', course.instructorId);
-    // data.append('price', course.price);
-    // data.append('description', course.description);
-    // data.append('file', course.file)
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("upload_preset", "v3cvsxfw");
 
-    // let config = {
-    //     method: 'post',
-    //     maxBodyLength: Infinity,
-    //     url: 'http://localhost:4000/api/courseService/courses/newCourse',
-    //     data : data
-    //   };
+    try {
+      const cloudResponse = await axios.post(
+        "https://api.cloudinary.com/v1_1/dsj8tuguz/upload",
+        formData
+      );
 
-    // axios.request(config)
-    // .then((response) => {
-    //     console.log(response);
-    //     response.statusCode = 200;
-    //     window.location.reload(); // reload the page on successful submission
-    // })
-    // .catch((error) => {
-    //     console.log(error);
-    //     toast(error)
-    // });
+      if (cloudResponse.status == 200) {
+        console.log(cloudResponse);
+        setFileId(cloudResponse.data.asset_id);
+        setFileUrl(cloudResponse.data.secure_url);
 
-    const formdata = new FormData();
-    formdata.append("file", file);
-    axios
-      .post("/api/courseService/upload", formdata, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      })
-      .then((response) => {
-        console.log(response); // reload the page on successful submission
-      })
-      .catch((err) => console.log(err));
+        try {
+
+          const user =  JSON.parse(localStorage.getItem("user"));
+          const insId = user._id
+          console.log(insId);
+          
+          const imageInfo = {
+            public_id:cloudResponse.data.asset_id,
+            url:cloudResponse.data.secure_url
+          }
+    
+          const newCourse = {
+            name: name,
+            description: description,
+            instructorId: insId,
+            price: price,
+            file: imageInfo
+          };
+          console.log(newCourse);
+          const response = axios.post("http://localhost:4000/api/courseService/courses/newCourse", newCourse)
+          
+          if (response.status == 200){
+            console.log(response)
+          }
+            
+        } catch (error) {
+          console.error(error);
+          throw new error("Course error");
+        }
+
+      } else{
+        console.log(cloudResponse);
+      }
+    } catch (error) {
+      console.error(error);
+      throw new error("Cloud error");
+    }
+
+
   };
 
   return (
@@ -66,7 +80,7 @@ const CourseForm = () => {
         <h3>Create a New Course</h3>
         <br />
 
-        {/* <lable>Course Name :</lable>
+        <lable>Course Name :</lable>
         <input
           type="text"
           onChange={(e) => setName(e.target.value)}
@@ -74,13 +88,13 @@ const CourseForm = () => {
           className={emptyFields.includes("title") ? "error" : ""}
         />
 
-        <lable>Course Instructor :</lable>
+        {/* <lable>Course Instructor :</lable>
         <input
           type="text"
           onChange={(e) => setInstructorId(e.target.value)}
           value={instructorId}
           className={emptyFields.includes("instructorId") ? "error" : ""}
-        />
+        /> */}
 
         <lable>Price :</lable>
         <input
@@ -98,12 +112,14 @@ const CourseForm = () => {
           value={description}
           className={emptyFields.includes("description") ? "error" : ""}
           style={{ width: "379px", height: "100px", marginBottom: "10px" }}
-        /> */}
+        />
         <label>Thumbnail : </label>
         <input
           type="file"
           id="myfile"
-          onChange={(e) => setFile(e.target.files[0])}
+          onChange={(e) => {
+            setFile(e.target.files[0]);
+          }}
           className={emptyFields.includes("file") ? "error" : ""}
           accept="image/*" //only accept image files
           name="filename"

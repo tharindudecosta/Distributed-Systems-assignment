@@ -3,7 +3,7 @@ const express = require('express')
 const cors = require('cors')
 
 const MONGO_URI = "mongodb+srv://user1:pass@cluster0.obfkb3h.mongodb.net/MS_Project?retryWrites=true&w=majority"
-const PORT = 4003
+const PORT = 4004
 
 const enrollmentRoutes = require("./routes/enrollmentRoutes");
 
