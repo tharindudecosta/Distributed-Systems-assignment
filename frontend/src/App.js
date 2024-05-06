@@ -12,6 +12,7 @@ import AllCourses from './views/Course/AllCourses'
 import AllCoursesIns from './views/Course/AllCoursesIns'
 import CoursePurchase from './views/Course/CoursePurchase'
 import AllCoursesStu from './views/Course/AllCoursesStu'
+import CourseUpdateForm from './views/Course/CourseUpdateForm'
 
 function App() {
 
@@ -31,6 +32,7 @@ function App() {
             <Route path='/inscourse' element={<AllCoursesIns />} />
             <Route path='/stucourse' element={<AllCoursesStu />} />
             <Route path='/coursePurchase/:id' element={<CoursePurchase />} />
+            <Route path='/CourseUpdate/:id' element={<CourseUpdateForm />} />
           </Routes>
         </div>
       </BrowserRouter>
