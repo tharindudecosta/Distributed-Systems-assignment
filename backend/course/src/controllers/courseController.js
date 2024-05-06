@@ -56,7 +56,7 @@ const createCourse = async (req, res) => {
 };
 
 const getCourses = async (req, res) => {
-  const courses = await Course.find({}).sort({ createdAt: -1 });
+  const courses = await Course.find({status:"Active"}).sort({ createdAt: -1 });
   res.status(200).json(courses);
 };
 
@@ -77,8 +77,9 @@ const getCourseRecord = async (req, res) => {
 };
 
 const updateCourse = async (req, res) => {
-  const { id, name, description, instructorId, price,file } = req.body;
-
+  const {name, description, instructor, price, file, status } = req.body;
+  const { id } = req.params;
+  
   let emptyFields = [];
 
   if (!id) {
@@ -90,7 +91,7 @@ const updateCourse = async (req, res) => {
   if (!name) {
     emptyFields.push("name");
   }
-  if (!instructorId) {
+  if (!instructor) {
     emptyFields.push("instructorId");
   }
   if (!price) {
@@ -98,6 +99,9 @@ const updateCourse = async (req, res) => {
   }
   if (!description) {
     emptyFields.push("description");
+  }
+  if (!status) {
+    emptyFields.push("status");
   }
   if (emptyFields.length > 0) {
     return res
@@ -109,16 +113,22 @@ const updateCourse = async (req, res) => {
     return res.status(404).json({ error: "No such course" });
   }
 
-  const course = await Course.findOneAndUpdate(
-    { _id: id },
-    {
-      ...req.body,
-    }
-  );
 
+  const filter = { _id: id};
+  const update = {
+    name: name,
+    description: description,
+    instructor:  new mongoose.Types.ObjectId(instructor),
+    price: price,
+    file: file,
+    status:status
+  }
+  console.log(update);
+  const course = await Course.findOneAndUpdate(filter,update);
   if (!course) {
     return res.status(404).json({ error: "No such course" });
   }
+  res.status(200).json(course)
 };
 
 const deleteCourse = async (req, res) => {

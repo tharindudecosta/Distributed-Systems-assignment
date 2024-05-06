@@ -1,12 +1,12 @@
 const Enrollment = require("../models/Enrollment");
 const User = require("../models/User");
 const Course = require("../models/Course");
+const mongoose = require("mongoose");
 
 // Controller function to enroll a student in a course
 const enrollStudent = async (req, res) => {
-  const { studentId, courseId } =
-    req.body;
-  console.log(req.body);
+  const { studentId, courseId } = req.body;
+
 
   let emptyFields = [];
 
@@ -74,6 +74,16 @@ const getEnrolledCourse = async (req, res) => {
       return res.status(200).json(enrolledCourses)
   }
 }
+const getStudentAllEnrollments = async (req, res) => {
+  const { studentId } = req.params;
+  const objectId = new mongoose.Types.ObjectId(studentId);
+
+  const enRecords = await Enrollment
+    .find({ studentId: objectId })
+    .sort({ createdAt: -1 });
+  
+  res.status(200).json(enRecords);
+};
 
 
-module.exports = { enrollStudent, getEnrollments, getEnrolledCourse };
+module.exports = { enrollStudent, getEnrollments, getEnrolledCourse,getStudentAllEnrollments };

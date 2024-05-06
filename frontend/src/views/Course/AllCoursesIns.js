@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import CoursesView from "./CourseViewSingle";
+import CourseViewInsSingle from "./CourseViewInsSingle";
 import axios from "axios";
 
 const AllCoursesIns = () => {
@@ -46,7 +46,7 @@ const AllCoursesIns = () => {
                 }
               })
               .map((course) => (
-                <CoursesView key={course._id} course={course} />
+                <CourseViewInsSingle key={course._id} course={course} />
               ))}
         </div>
       </div>
