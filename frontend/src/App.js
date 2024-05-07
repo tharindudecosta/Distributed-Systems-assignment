@@ -14,7 +14,7 @@ import AllCoursesIns from './views/Course/AllCoursesIns'
 import CoursePurchase from './views/Course/CoursePurchase'
 import AllCoursesStu from './views/Course/AllCoursesStu'
 import CourseUpdateForm from './views/Course/CourseUpdateForm'
-import CourseContentCreate from './views/CourseContent/CourseContentCreate'
+import CourseContentCreate from './views/CourseContent/courseContentCreate'
 
 function App() {
 
@@ -29,13 +29,13 @@ function App() {
             <Route path='/RegisterUser' element={<RegisterUser />} />
 
             {/* Training Route */}
-            <Route path='/CourseForm' element={<CourseForm />} />
-            <Route path='/allcourses' element={<AllCourses />} />
-            <Route path='/inscourse' element={<AllCoursesIns />} />
-            <Route path='/stucourse' element={<AllCoursesStu />} />
-            <Route path='/coursePurchase/:id' element={<CoursePurchase />} />
-            <Route path='/CourseUpdate/:id' element={<CourseUpdateForm />} />
-            <Route path='/CourseContentCreate' element={<CourseContentCreate />} />
+            <Route path='/CourseForm' element={<Auth>  <CourseForm /> </Auth>} />
+            <Route path='/allcourses' element={<Auth> <AllCourses /> </Auth>} />
+            <Route path='/inscourse' element={<Auth> <AllCoursesIns /> </Auth>} />
+            <Route path='/stucourse' element={<Auth> <AllCoursesStu /> </Auth>} />
+            <Route path='/coursePurchase/:id' element={<Auth> <CoursePurchase /></Auth>} />
+            <Route path='/CourseUpdate/:id' element={<Auth> <CourseUpdateForm /></Auth>} />
+            <Route path='/CourseContentCreate' element={<Auth><CourseContentCreate /></Auth>} />
           </Routes>
         </div>
       </BrowserRouter>
