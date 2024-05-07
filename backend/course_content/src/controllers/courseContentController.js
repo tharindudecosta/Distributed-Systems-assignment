@@ -1,3 +1,4 @@
+const { log } = require("console");
 const CourseContent = require("../models/CourseContentModel");
 const mongoose = require("mongoose");
 const multer = require("multer");
@@ -45,6 +46,7 @@ const createCourseContent = async (req, res) => {
     emptyFields.push("file");
   }
   if (emptyFields.length > 0) {
+    console.log(emptyFields);
     return res
       .status(400)
       .json({ error: "Please fill the required fields", emptyFields });
@@ -60,6 +62,7 @@ const createCourseContent = async (req, res) => {
     });
     res.status(200).json({ courseContent });
   } catch (error) {
+    console.log(error);
     res.status(400).json({ error: error.message });
   }
 };

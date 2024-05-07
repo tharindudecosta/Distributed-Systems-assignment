@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useState } from "react";
 import CircularProgress from "@mui/material/CircularProgress";
+import { useParams } from "react-router-dom";
 
 const CourseContentCreate = () => {
   const { id } = useParams();
@@ -10,12 +11,16 @@ const CourseContentCreate = () => {
   const [video, setVideo] = useState(null);
   const [isUploading, setIsUploading] = useState(false);
 
+  const [error, setError] = useState(null);
+  const [emptyFields, setEmptyFields] = useState([]);
+
   const handleFileChange = (event) => {
     const selectedFile = event.target.files[0];
     setVideo(selectedFile);
   };
 
-  const handleUpload = async () => {
+  const handleUpload = async (e) => {
+    e.preventDefault();
     if (!video) {
       alert("Please select a video file");
       return;
@@ -31,22 +36,24 @@ const CourseContentCreate = () => {
         "https://api.cloudinary.com/v1_1/dsj8tuguz/video/upload",
         formData
       );
-
+      
       if (videoResponse.status == 200) {
         try {
           const videoInfo = {
             public_id: videoResponse.data.asset_id,
             url: videoResponse.data.secure_url,
           };
-
+          // const videoInfo = {
+          //   public_id: "eqfa0nrbpmy6lkwpxt7v",
+          //   url: "https://res.cloudinary.com/dsj8tuguz/video/upload/v1715074361/eqfa0nrbpmy6lkwpxt7v.mp4",
+          // };
           const content = {
-            tile: name,
+            title: name,
             description: description,
             courseId: id,
             file: videoInfo,
           };
-          console.log(newCourse);
-          const response = await axios.put(
+          const response = await axios.post(
             `http://localhost:4000/api/courseContentService/courseContents/createContent`,
             content
           );
@@ -59,7 +66,7 @@ const CourseContentCreate = () => {
         }
       }
 
-      console.log("Uploaded video URL:", response);
+      // console.log("Uploaded video URL:", videoResponse);
       // Handle the uploaded video URL as needed (e.g., save to database, display in UI)
     } catch (error) {
       console.error("Error uploading video:", error);
@@ -73,7 +80,7 @@ const CourseContentCreate = () => {
       <div>
         <h2>Add new Course Content </h2>
 
-        <form className="create" onSubmit={handleSubmit}>
+        <form className="create" onSubmit={handleUpload}>
           <h3>Create a New Course</h3>
           <br />
           <lable>Course Name :</lable>
@@ -97,10 +104,9 @@ const CourseContentCreate = () => {
             accept="video/*, audio/*"
             onChange={handleFileChange}
           />
-          <button onClick={handleUpload}>Upload</button>
-          {isUploading && <CircularProgress />}{" "}
           {/* Render loading icon if uploading */}
           <button className="TrainingButton">Create</button>
+          {isUploading && <CircularProgress />}{" "}
           {error && <div className="error">{error}</div>}
         </form>
       </div>
