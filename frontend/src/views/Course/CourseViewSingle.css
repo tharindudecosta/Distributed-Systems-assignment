@@ -1,0 +1,78 @@
+.course-details {
+    max-width: 1000px; /* Set the maximum width */
+    margin: 0 auto; /* Center the container horizontally */
+    margin-bottom: 20px;
+    border: 1px solid #d87373;
+    border-radius: 10px;
+    overflow: hidden;
+    background-color: #ffd4b8;
+  }
+  
+  
+  .course-info {
+    display: flex;
+    padding: 20px;
+  }
+  
+  .course-image {
+    flex: 1;
+    width: 700px; /* Set a fixed width */
+    height: 200px; /* Set a fixed height */
+    overflow: hidden; /* Ensure images maintain aspect ratio */
+  }
+  
+  .course-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Maintain aspect ratio and cover the entire space */
+  }
+  
+  
+  .course-description {
+    flex: 2;
+    padding-left: 20px;
+  }
+  
+  .course-description p {
+    margin-bottom: 10px;
+  }
+  
+  .course-actions {
+    margin-top: 20px;
+  }
+  
+  .buy-button,
+  .delete-button,
+  .update-button {
+    padding: 10px 20px;
+    margin-right: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .buy-button {
+    background-color: #4caf50;
+    color: white;
+  }
+  
+  .delete-button {
+    background-color: #f44336;
+    color: white;
+  }
+
+  .update-button {
+    background-color: #36a5f4;
+    color: white;
+  }
+  
+  .delete-button:hover,
+  .update-button:hover {
+    background-color: #d32f2f;
+  }
+  
+  .course-description h2 {
+    color: #f14d42;
+    font-size: 28px;
+    font-family: Impact, fantasy;
+  }

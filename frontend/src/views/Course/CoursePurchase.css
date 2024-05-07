@@ -1,0 +1,66 @@
+/* CoursePurchase.css */
+
+.course-purchase-container {
+    width: 1500px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .course-details {
+    width: 900px;
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .details {
+    margin-left: 20px;
+  }
+  
+  .description {
+    margin-top: 10px;
+  }
+  
+  .purchase-form {
+    width: 500px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    background-color:rgb(154, 201, 252);
+  }
+  
+  .purchase-form h3{
+    font-size: 19px;
+    font-family: Apple Chancery, cursive;
+    color: blue;
+  }
+  
+  .form-group {
+    margin-bottom: 15px;
+  }
+  
+  .confirm-button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #4caf50;
+    color: white;
+    cursor: pointer;
+  }
+  
+  .confirm-button:hover {
+    background-color: #45a049;
+  }
+  
+  .error {
+    color: red;
+    margin-top: 10px;
+  }
+
+  .details h2{
+    color: #f14d42;
+    font-size: 25px;
+    font-family: Impact, fantasy;
+  }
+  

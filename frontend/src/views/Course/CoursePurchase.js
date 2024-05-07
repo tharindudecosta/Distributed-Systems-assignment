@@ -4,6 +4,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Image } from "cloudinary-react";
 import { useParams } from "react-router-dom";
+import "./CoursePurchase.css"; // Import CSS file for styling
 
 const CoursePurchase = () => {
   const [name, setName] = useState("");
@@ -35,31 +36,29 @@ const CoursePurchase = () => {
       studentId: studentId,
       courseId: id,
     };
-    console.log(enrollment);
+
     try {
       const response = await axios.post(
         "http://localhost:4000/api/enrollmentService/enrollments/enroll",
         enrollment
       );
-      console.log(response);
-      if (response.status == 200) {
+      if (response.status === 200) {
         try {
           const response = await axios.post(
             "http://localhost:4000/api/paymentService/payments/newPayment",
             Payment
           );
-          if (response.status == 200) {
-            window.alert("Payment complted")
-            console.log(response);
+          if (response.status === 200) {
+            toast.success("Payment completed");
           }
         } catch (error) {
           console.error(error);
         }
       } else {
-        console.error(error);
+        console.error("Error:", error);
       }
     } catch (error) {
-      console.error(error);
+      console.error("Error:", error);
     }
   };
 
@@ -84,41 +83,50 @@ const CoursePurchase = () => {
   }, []);
 
   return (
-    <div>
-      <Image style={{ width: 250 }} cloudName="dsj8tuguz" publicId={fileUrl} />
-      <p className="side">
-        <strong>Name : </strong>
-        {name}
-      </p>
-      <p className="side">
-        <strong>Instructor : </strong>
-        {instructor}
-      </p>
-      <p className="side">
-        <strong>Price (Rs.): </strong>
-        {price}
-      </p>
-      <p className="side">
-        <strong>status : </strong>
-        {status}
-      </p>
-      <p className="description">
-        <strong>Description : </strong>
-        {description}
-      </p>
-      <br />
-      <form className="create" onSubmit={handleSubmit}>
+    <div className="course-purchase-container">
+      <div className="course-details">
+        <Image
+          style={{ width: 250 }}
+          cloudName="dsj8tuguz"
+          publicId={fileUrl}
+        />
+        <div className="details">
+          <h2>
+            <strong></strong> {name}
+          </h2>
+          <p>
+            <strong>Instructor:</strong> {instructor}
+          </p>
+          <p>
+            <strong>Price (Rs.):</strong> {price}
+          </p>
+          <p>
+            <strong>Status:</strong> {status}
+          </p>
+          <p className="description">
+            <strong>Description:</strong> {description}
+          </p>
+        </div>
+      </div>
+      <form className="purchase-form" onSubmit={handleSubmit}>
         <h3>Purchase a New Course</h3>
-        <br />
-
-        <lable>Card number</lable>
-        <input type="text" />
-        <lable>CVV number</lable>
-        <input type="text" />
-
-        <button>Confirm</button>
+        <br></br>
+        <div className="form-group">
+          <label>Card Number: </label>
+          <input type="text" />
+        </div>
+        <div className="form-group">
+          <label> Name : </label>
+          <input type="text" />
+        </div>
+        <div className="form-group">
+          <label>CVV Number : </label>
+          <input type="text" />
+        </div>
+        <button className="confirm-button">Confirm</button>
         {error && <div className="error">{error}</div>}
       </form>
+      <ToastContainer />
     </div>
   );
 };
