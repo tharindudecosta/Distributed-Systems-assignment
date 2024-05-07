@@ -1,0 +1,41 @@
+.container {
+    max-width: 1500px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  .homeView {
+    text-align: center;
+  }
+  
+  .inputBar {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .courses-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between; /* Adjust as needed */
+  }
+
+  .inputBar {
+    width: 500px;
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+    box-sizing: border-box;
+  }
+  
+  .inputBar:focus {
+    border-color: #007bff;
+    outline: none;
+  }
+  
+  
+  /* Additional styling for CourseViewSingle component can go here */
+  

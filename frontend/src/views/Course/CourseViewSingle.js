@@ -2,6 +2,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { Image } from "cloudinary-react";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import "./CourseViewSingle.css"; // Import CSS file for styling
 
 const CoursesView = ({ course }) => {
   const [instructorName, setInstructorName] = useState();
@@ -9,7 +10,7 @@ const CoursesView = ({ course }) => {
   const handleClick = async (e) => {
     e.preventDefault();
     try {
-      if (window.confirm("Are You sure you want to delete record?")) {
+      if (window.confirm("Are you sure you want to delete this record?")) {
         const deletedCourse = {
           name: course.name,
           description: course.description,
@@ -23,7 +24,7 @@ const CoursesView = ({ course }) => {
           `http://localhost:4000/api/courseService/courses/update/${course._id}`,
           deletedCourse
         );
-        if (response.status == 200) {
+        if (response.status === 200) {
           window.location.reload();
         }
       }
@@ -50,51 +51,44 @@ const CoursesView = ({ course }) => {
 
   return (
     <div className="course-details">
-      <table className="course-info">
-        <tr>
-          <td>
-            <Image
-              style={{ width: 250 }}
-              cloudName="dsj8tuguz"
-              publicId={course.file.url}
-            />
-          </td>
-          <td>
-            <p className="side">
-              <strong>Name : </strong>
-              {course.name}
-            </p>
-            <p className="side">
-              <strong>Instructor : </strong>
-              {instructorName}
-            </p>
-            <p className="side">
-              <strong>Price (Rs.): </strong>
-              {course.price}
-            </p>
-            <p className="side">
-              <strong>status : </strong>
-              {course.status}
-            </p>
-            <p className="description">
-              <strong>Description : </strong>
-              {course.description}
-            </p>
-            <br />
-          </td>
-          <td>
+      <div className="course-info">
+        <div className="course-image">
+          <Image
+            cloudName="dsj8tuguz"
+            publicId={course.file.url}
+            className="course-image"
+          />
+        </div>
+        <div className="course-description">
+          <h2>{course.name}</h2>
+          <p>
+            <strong>Course ID:</strong> {course._id}
+          </p>
+          <p>
+            <strong>Instructor:</strong> {instructorName}
+          </p>
+          <p>
+            <strong>Price (Rs.):</strong> {course.price}
+          </p>
+          <p>
+            <strong>Status:</strong> {course.status}
+          </p>
+          <p>
+            <strong>Description:</strong> {course.description}
+          </p>
+          <div className="course-actions">
             <a href={"/coursePurchase/" + course._id}>
-              <button>Buy now</button>
+              <button className="buy-button">Buy now</button>
             </a>
-            <br />
-            <button onClick={handleClick}>Delete</button>
-            <br />
+            <button className="delete-button" onClick={handleClick}>
+              Delete
+            </button>
             <a href={"/CourseUpdate/" + course._id}>
-              <button className="blueButton">Update</button>
+              <button className="update-button">Update</button>
             </a>
-          </td>
-        </tr>
-      </table>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
