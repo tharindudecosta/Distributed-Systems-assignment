@@ -30,9 +30,9 @@ function App() {
 
             {/* Training Route */}
             <Route path='/CourseForm' element={<Auth>  <CourseForm /> </Auth>} />
-            <Route path='/allcourses' element={<Auth> <AllCourses /></Auth>} />
-            <Route path='/inscourse' element={<Auth> <AllCoursesIns /></Auth>} />
-            <Route path='/stucourse' element={<Auth> <AllCoursesStu /></Auth>} />
+            <Route path='/allcourses' element={<Auth> <AllCourses /> </Auth>} />
+            <Route path='/inscourse' element={<Auth> <AllCoursesIns /> </Auth>} />
+            <Route path='/stucourse' element={<Auth> <AllCoursesStu /> </Auth>} />
             <Route path='/coursePurchase/:id' element={<Auth> <CoursePurchase /></Auth>} />
             <Route path='/CourseUpdate/:id' element={<Auth> <CourseUpdateForm /></Auth>} />
             <Route path='/CourseContentCreate' element={<Auth><CourseContentCreate /></Auth>} />
