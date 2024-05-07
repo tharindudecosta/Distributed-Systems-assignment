@@ -3,17 +3,6 @@ const express = require('express')
 const proxy = require('express-http-proxy')
 const cors = require('cors')
 
-const multer = require("multer");
-const storage = multer.diskStorage({
-  destination: function(req,file,cb){
-    return cb(null,"./upload")
-  },
-  filename: function(req,file,cb){
-    return cb(null, `${Date.now()}_${file.originalname}`)
-  }
-})
-const uploadfile = multer({ storage });
-
 // express app
 const app = express()
 

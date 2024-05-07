@@ -16,6 +16,10 @@ import AllCoursesStu from './views/Course/AllCoursesStu'
 import CourseUpdateForm from './views/Course/CourseUpdateForm'
 import CourseContentCreate from './views/CourseContent/CourseContentCreate'
 import CourseContentAll from './views/CourseContent/CourseContentAll'
+
+import AllPayments from './views/PaymentManagement/AllPayments'
+import AllEnrollments from './views/PaymentManagement/AllEnrollments'
+
 function App() {
 
   return (
@@ -37,6 +41,9 @@ function App() {
             <Route path='/CourseUpdate/:id' element={<Auth> <CourseUpdateForm /></Auth>} />
             <Route path='/courseContentForm/:id' element={<Auth><CourseContentCreate /></Auth>} />
             <Route path='/courseContentAll/:id' element={<Auth><CourseContentAll /></Auth>} />
+
+            <Route path='/allPayments' element={<Auth><AllPayments /></Auth>} />
+            <Route path='/allEnrollments' element={<Auth><AllEnrollments /></Auth>} />
           </Routes>
         </div>
       </BrowserRouter>

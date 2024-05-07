@@ -47,7 +47,7 @@ const enrollStudent = async (req, res) => {
 // Controller function to get all enrollments
 const getEnrollments = async (req, res) => {
   try {
-    const enrollments = await Enrollment.find().select("-__v");
+    const enrollments = await Enrollment.find().sort({ createdAt: -1 });
     res.status(200).json(enrollments);
   } catch (err) {
     res.status(500).json({ message: err.message });
