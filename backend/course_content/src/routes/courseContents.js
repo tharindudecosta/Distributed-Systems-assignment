@@ -1,22 +1,23 @@
-const multer = require('multer');
-const upload = require('../middlewares/multerCourseContent');
-const express = require('express');
+const express = require("express");
 
 const {
-    getCourseContent,
-    createCourseContent,
-    deleteCourseContents,
-    getSingleContent
-} = require('../controllers/courseContentController');
+  getCourseContent,
+  createCourseContent,
+  deleteCourseContents,
+  getSingleContent,
+  getContentByCourse,
+} = require("../controllers/courseContentController");
 
 const router = express.Router();
 
-router.get('/', getCourseContent);
+router.get("/", getCourseContent);
 
-router.get('/:id', getSingleContent);
+router.get("/course/:id", getContentByCourse);
 
-router.route('/').get(getCourseContent).post(upload.single('file'), createCourseContent);
+router.get("/:id", getSingleContent);
 
-router.delete('/:id', deleteCourseContents);
+router.post("/createContent", createCourseContent);
+
+router.delete("/delete/:id", deleteCourseContents);
 
 module.exports = router;

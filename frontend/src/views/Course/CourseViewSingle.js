@@ -83,7 +83,9 @@ const CoursesView = ({ course }) => {
             <button className="delete-button" onClick={handleClick}>
               Delete
             </button>
-            <button className="update-button">Update</button>
+            <a href={"/CourseUpdate/" + course._id}>
+              <button className="update-button">Update</button>
+            </a>
           </div>
         </div>
       </div>
