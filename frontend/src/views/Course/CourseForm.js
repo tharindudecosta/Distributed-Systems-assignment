@@ -86,14 +86,6 @@ const CourseForm = () => {
           className={emptyFields.includes("title") ? "error" : ""}
         />
 
-        {/* <lable>Course Instructor :</lable>
-        <input
-          type="text"
-          onChange={(e) => setInstructorId(e.target.value)}
-          value={instructorId}
-          className={emptyFields.includes("instructorId") ? "error" : ""}
-        /> */}
-
         <lable>Price :</lable>
         <input
           type="number"
