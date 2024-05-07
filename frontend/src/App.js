@@ -1,4 +1,5 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import Auth from "./common/Auth"
 
 // pages & components
 import Home from './pages/Home'
@@ -13,6 +14,7 @@ import AllCoursesIns from './views/Course/AllCoursesIns'
 import CoursePurchase from './views/Course/CoursePurchase'
 import AllCoursesStu from './views/Course/AllCoursesStu'
 import CourseUpdateForm from './views/Course/CourseUpdateForm'
+import CourseContentCreate from './views/CourseContent/CourseContentCreate'
 
 function App() {
 
@@ -21,7 +23,7 @@ function App() {
       <BrowserRouter>
         <div className="pages">
           <Routes>
-            <Route path="/" element={<Home />} />
+            <Route path="/" element={<Auth> <Home /> </Auth>} />
             <Route path='/Login' element={<Login />} />
             <Route path='/Register' element={<RegisterStudent />} />
             <Route path='/RegisterUser' element={<RegisterUser />} />
@@ -33,6 +35,7 @@ function App() {
             <Route path='/stucourse' element={<AllCoursesStu />} />
             <Route path='/coursePurchase/:id' element={<CoursePurchase />} />
             <Route path='/CourseUpdate/:id' element={<CourseUpdateForm />} />
+            <Route path='/CourseContentCreate' element={<CourseContentCreate />} />
           </Routes>
         </div>
       </BrowserRouter>
