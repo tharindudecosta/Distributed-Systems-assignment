@@ -116,7 +116,7 @@ const CoursePurchase = () => {
           <input type="text" />
         </div>
         <div className="form-group">
-          <label> Name : </label>
+          <label>Full Name : </label>
           <input type="text" />
         </div>
         <div className="form-group">

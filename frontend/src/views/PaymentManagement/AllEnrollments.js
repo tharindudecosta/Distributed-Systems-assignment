@@ -119,15 +119,28 @@ const AllEnrollments = () => {
       >
         Download
       </button>
-      <table id="attTbl">
+
+      <table className="min-w-full bg-slate-200">
         <thead>
-          <tr>
-            <th>enrollment Id</th>
-            <th>Course</th>
-            <th>student</th>
-            <th>Amount</th>
-            <th>status</th>
-            <th>Date</th>
+          <tr className="bg-zinc-950 text-zinc-100">
+            <th scope="col" className="py-3 px-6 font-medium text-zinc-100">
+              Payment Id
+            </th>
+            <th scope="col" className="py-3 px-6 font-medium text-zinc-100">
+              Course
+            </th>
+            <th scope="col" className="py-3 px-6 font-medium text-zinc-100">
+              Student
+            </th>
+            <th scope="col" className="py-3 px-6 font-medium text-zinc-100">
+              Amount
+            </th>
+            <th scope="col" className="py-3 px-6 font-medium text-zinc-100">
+              Status
+            </th>
+            <th scope="col" className="py-3 px-6 font-medium text-zinc-100">
+              Date
+            </th>
           </tr>
         </thead>
         <tbody>

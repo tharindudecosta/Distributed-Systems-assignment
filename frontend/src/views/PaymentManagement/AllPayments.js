@@ -105,7 +105,7 @@ const AllPayments = () => {
   }, []);
 
   return (
-    <div>
+    <div className="cont123">
       <input
         type="text"
         style={{ width: "500px" }}
@@ -120,36 +120,48 @@ const AllPayments = () => {
       >
         Download
       </button>
-      <table id="attTbl">
+      <table className="min-w-full bg-slate-200">
         <thead>
-          <tr>
-            <th>payment Id</th>
-            <th>Course</th>
-            <th>student</th>
-            <th>Amount</th>
-            <th>status</th>
-            <th>Date</th>
+          <tr className="bg-zinc-950 text-zinc-100">
+            <th scope="col" className="py-3 px-6 font-medium text-zinc-100">
+              No
+            </th>
+            <th scope="col" className="py-3 px-6 font-medium text-zinc-100">
+              Payment Id
+            </th>
+            <th scope="col" className="py-3 px-6 font-medium text-zinc-100">
+              Course
+            </th>
+            <th scope="col" className="py-3 px-6 font-medium text-zinc-100">
+              Student
+            </th>
+            <th scope="col" className="py-3 px-6 font-medium text-zinc-100">
+              Amount
+            </th>
+            <th scope="col" className="py-3 px-6 font-medium text-zinc-100">
+              Status
+            </th>
+            <th scope="col" className="py-3 px-6 font-medium text-zinc-100">
+              Date
+            </th>
           </tr>
         </thead>
-        <tbody>
+        <tbody style={{ background: "pink" }}>
           {paymentResponse &&
-            paymentResponse
-              .filter((payment) => {
-                if (search === "") {
-                  return payment;
-                } else if (
-                  payment._id.toLowerCase().includes(search.toLowerCase()) ||
-                  payment.student
-                    .toLowerCase()
-                    .includes(search.toLowerCase()) ||
-                  payment.course.toLowerCase().includes(search.toLowerCase())
-                ) {
-                  return payment;
-                }
-              })
-              .map((payment) => (
-                <PaymentSingle key={payment._id} payment={payment} />
-              ))}
+            paymentResponse.map((payment, index) => (
+              <tr
+                key={index}
+                className={index % 2 === 0 ? "bg-purple-400" : ""}
+              >
+                <td className="py-4 px-6 text-center">{index + 1}</td>
+                <td className="py-4 px-6">{payment._id}</td>
+                <td className="py-4 px-6">{payment.course}</td>
+                <td className="py-4 px-6">{payment.student}</td>
+                <td className="py-4 px-6">{payment.amount}</td>
+                <td className="py-4 px-6">{payment.status}</td>
+                <td className="py-4 px-6">{payment.createdAt}</td>
+              </tr>
+            ))}
         </tbody>
       </table>
     </div>
