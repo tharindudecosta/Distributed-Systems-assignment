@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useState } from "react";
 import CircularProgress from "@mui/material/CircularProgress";
 import { useParams } from "react-router-dom";
+import "./CourseContentCreate.css"; // Import CSS file for styling
 
 const CourseContentCreate = () => {
   const { id } = useParams();
@@ -10,7 +11,6 @@ const CourseContentCreate = () => {
   const [description, setDescription] = useState("");
   const [video, setVideo] = useState(null);
   const [isUploading, setIsUploading] = useState(false);
-
   const [error, setError] = useState(null);
   const [emptyFields, setEmptyFields] = useState([]);
 
@@ -19,12 +19,13 @@ const CourseContentCreate = () => {
     setVideo(selectedFile);
   };
 
-  const handleUpload = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!video) {
-      alert("Please select a video file");
+    if (!name || !description || !video) {
+      setEmptyFields(["title", "description", "video"]);
       return;
     }
+
     setIsUploading(true);
 
     try {
@@ -36,76 +37,81 @@ const CourseContentCreate = () => {
         "https://api.cloudinary.com/v1_1/dsj8tuguz/video/upload",
         formData
       );
-      
-      if (videoResponse.status == 200) {
-        try {
-          const videoInfo = {
-            public_id: videoResponse.data.asset_id,
-            url: videoResponse.data.secure_url,
-          };
-          // const videoInfo = {
-          //   public_id: "eqfa0nrbpmy6lkwpxt7v",
-          //   url: "https://res.cloudinary.com/dsj8tuguz/video/upload/v1715074361/eqfa0nrbpmy6lkwpxt7v.mp4",
-          // };
-          const content = {
-            title: name,
-            description: description,
-            courseId: id,
-            file: videoInfo,
-          };
-          const response = await axios.post(
-            `http://localhost:4000/api/courseContentService/courseContents/createContent`,
-            content
-          );
 
-          if (response.status == 200) {
-            console.log(response);
-          }
-        } catch (error) {
-          console.error("Error creation:", error);
+      if (videoResponse.status === 200) {
+        const videoInfo = {
+          public_id: videoResponse.data.asset_id,
+          url: videoResponse.data.secure_url,
+        };
+        
+        const content = {
+          title: name,
+          description: description,
+          courseId: id,
+          file: videoInfo,
+        };
+
+        const response = await axios.post(
+          `http://localhost:4000/api/courseContentService/courseContents/createContent`,
+          content
+        );
+
+        if (response.status === 200) {
+          console.log(response);
+          // Clear form fields after successful submission
+          setName("");
+          setDescription("");
+          setVideo(null);
+          setError(null);
+          setEmptyFields([]);
         }
       }
-
-      // console.log("Uploaded video URL:", videoResponse);
-      // Handle the uploaded video URL as needed (e.g., save to database, display in UI)
     } catch (error) {
-      console.error("Error uploading video:", error);
+      console.error("Error:", error);
+      setError("Error occurred while uploading video.");
     } finally {
       setIsUploading(false);
     }
   };
 
   return (
-    <div>
-      <div>
-        <h2>Add new Course Content </h2>
-
-        <form className="create" onSubmit={handleUpload}>
+    <div className="page-container mt-20">
+      <h2>Add new Course Content</h2>
+      <div className="form-container">
+        <form className="create-form" onSubmit={handleSubmit}>
           <h3>Create a New Course</h3>
-          <br />
-          <lable>Course Name :</lable>
-          <input
-            type="text"
-            onChange={(e) => setName(e.target.value)}
-            value={name}
-            className={emptyFields.includes("title") ? "error" : ""}
-          />
-          <lable>Description :</lable>
-          <textarea
-            name="description"
-            type="text"
-            onChange={(e) => setDescription(e.target.value)}
-            value={description}
-            className={emptyFields.includes("description") ? "error" : ""}
-            style={{ width: "379px", height: "100px", marginBottom: "10px" }}
-          />
-          <input
-            type="file"
-            accept="video/*, audio/*"
-            onChange={handleFileChange}
-          />
+          <div className="form-group">
+            <label className="form-label">Course Name :</label>
+            <input
+              type="text"
+              onChange={(e) => setName(e.target.value)}
+              value={name}
+              className={emptyFields.includes("title") ? "form-input error" : "form-input"}
+            />
+          </div>
+          <div className="form-group">
+            <label className="form-label">Description :</label>
+            <textarea
+              name="description"
+              type="text"
+              onChange={(e) => setDescription(e.target.value)}
+              value={description}
+              className={emptyFields.includes("description") ? "form-input error" : "form-input"}
+            />
+          </div>
+          <div className="form-group">
+            <label className="form-label">Select Video :</label>
+            <input
+              type="file"
+              accept="video/*, audio/*"
+              onChange={handleFileChange}
+              className={emptyFields.includes("video") ? "form-input error" : "form-input"}
+            />
+          </div>
           {/* Render loading icon if uploading */}
-          <button className="TrainingButton">Create</button>
+          <button type="submit" className="form-button">
+            Create
+          </button>
           {isUploading && <CircularProgress />}{" "}
           {error && <div className="error">{error}</div>}
         </form>
