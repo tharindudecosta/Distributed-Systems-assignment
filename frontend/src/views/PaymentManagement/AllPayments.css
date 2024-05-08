@@ -1,0 +1,53 @@
+#attTbl {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background-color: #4caf50;
+  }
+  
+  #attTbl th,
+  #attTbl td {
+    border: 1px solid #dddddd;
+    padding: 8px;
+  }
+  
+  #attTbl th {
+    background-color: #f2f2f2;
+    text-align: left;
+  }
+  
+  #attTbl tbody tr:nth-child(even) {
+    background-color: #ffffff;
+  }
+  
+  #attTbl tbody tr:hover {
+    background-color: #f2f2f2;
+  }
+  
+  .inputBar {
+    margin-bottom: 10px;
+  }
+  
+  .pdfBtn {
+    background-color: #4caf50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+  
+  .pdfBtn:hover {
+    background-color: #45a049;
+  }
+  
+  .tableHeader {
+    border: 1px solid #dddddd;
+    padding: 8px;
+  }
+  
+  .cont123 {
+    max-width: 1500px;
+    margin: 0 auto;
+    padding: 20px;
+  }
