@@ -74,7 +74,7 @@ const CourseForm = () => {
   };
 
   return (
-    <div className="max-w-[700px] mx-auto mt-[40px]">
+    <div className="max-w-[700px] mx-auto ">
       <form className="create" onSubmit={handleSubmit}>
         <h3 className="text-[2rem] px-4">Create a New Course</h3>
         <div className="items-center mb-4 pt-[30px] px-4">
