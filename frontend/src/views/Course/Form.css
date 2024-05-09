@@ -3,43 +3,45 @@
     flex-direction: column;
     align-items: center;
     height: 100vh;
-  }
-  
-  .form-container {
-    width: 50%;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    padding: 20px;
-    margin-top: 20px;
-  }
-  
-  h3 {
+}
+
+.form-container {
+  width: 50%;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 20px;
+  margin-top: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); /* Add box shadow */
+}
+
+
+h3 {
     text-align: center;
     font-weight: bold;
     font-size: 20px;
-  }
-  
-  .form-group {
+}
+
+.form-group {
     margin-bottom: 20px;
-  }
-  
-  label {
+}
+
+label {
     font-weight: bold;
-  }
-  
-  input[type="text"],
-  input[type="number"],
-  textarea,
-  input[type="file"] {
+}
+
+input[type="text"],
+input[type="number"],
+textarea,
+input[type="file"] {
     width: 100%;
     padding: 8px;
     font-size: 16px;
     border: 1px solid #ccc;
     border-radius: 4px;
-  }
-  
-  .form-button {
-    width: 100%;
+}
+
+.form-button {
+    width: 30%;
     padding: 8px 16px;
     font-size: 14px;
     background-color: #007bff;
@@ -47,13 +49,12 @@
     border: none;
     border-radius: 4px;
     cursor: pointer;
-  }
-  
-  .form-button:hover {
+}
+
+.form-button:hover {
     background-color: #0056b3;
-  }
-  
-  .error {
+}
+
+.error {
     color: red;
-  }
-  
+}

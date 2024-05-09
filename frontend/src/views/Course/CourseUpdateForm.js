@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useParams } from "react-router-dom";
+import "./Form.css"; // Import CSS file for styling
 
 const CourseUpdateForm = () => {
   const { id } = useParams();
@@ -15,10 +16,8 @@ const CourseUpdateForm = () => {
 
   const [file, setFile] = useState(null);
   const [fileOld, setFileOld] = useState(null);
-
   const [fileUrl, setFileUrl] = useState(null);
   const [fileId, setFileId] = useState(null);
-
   const [newUpload, setNewUpload] = useState(false);
 
   const [error, setError] = useState(null);
@@ -141,46 +140,48 @@ const CourseUpdateForm = () => {
   }, []);
 
   return (
-    <div>
-      <form className="create" onSubmit={handleSubmit}>
-        <h3>Update Course</h3>
-        <br />
-
-        <lable>Course Name :</lable>
-        <input
-          type="text"
-          onChange={(e) => setName(e.target.value)}
-          value={name}
-          className={emptyFields.includes("title") ? "error" : ""}
-        />
-        <lable>Price :</lable>
-        <input
-          type="number"
-          onChange={(e) => setPrice(e.target.value)}
-          value={price}
-          className={emptyFields.includes("price") ? "error" : ""}
-        />
-
-        <lable>Description :</lable>
-        <textarea
-          name="description"
-          type="text"
-          onChange={(e) => setDescription(e.target.value)}
-          value={description}
-          className={emptyFields.includes("description") ? "error" : ""}
-          style={{ width: "379px", height: "100px", marginBottom: "10px" }}
-        />
-        <label>Thumbnail : </label>
-        <input
-          type="file"
-          id="myfile"
-          onChange={handleImage}
-          className={emptyFields.includes("file") ? "error" : ""}
-          accept="image/*" //only accept image files
-          name="filename"
-        />
-
-        <button className="TrainingButton">Create</button>
+    <div className="page-container mt-10">
+      <form onSubmit={handleSubmit} className="form-container">
+        <h3 className="mb-7">Update Course</h3>
+        <div className="form-group">
+          <label>Course Name :</label>
+          <input
+            type="text"
+            onChange={(e) => setName(e.target.value)}
+            value={name}
+            className={emptyFields.includes("name") ? "form-input error" : "form-input"}
+          />
+        </div>
+        <div className="form-group">
+          <label>Price :</label>
+          <input
+            type="number"
+            onChange={(e) => setPrice(e.target.value)}
+            value={price}
+            className={emptyFields.includes("price") ? "form-input error" : "form-input"}
+          />
+        </div>
+        <div className="form-group">
+          <label>Description :</label>
+          <textarea
+            name="description"
+            type="text"
+            onChange={(e) => setDescription(e.target.value)}
+            value={description}
+            className={emptyFields.includes("description") ? "form-input error" : "form-input"}
+          />
+        </div>
+        <div className="form-group">
+          <label>Thumbnail :</label>
+          <input
+            type="file"
+            id="myfile"
+            onChange={handleImage}
+            accept="image/*" //only accept image files
+            name="filename"
+          />
+        </div>
+        <button type="submit" className="form-button">Update</button>
         {error && <div className="error">{error}</div>}
       </form>
 

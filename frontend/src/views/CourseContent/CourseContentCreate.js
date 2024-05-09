@@ -75,13 +75,13 @@ const CourseContentCreate = () => {
   };
 
   return (
-    <div className="page-container mt-20">
-      <h2>Add new Course Content</h2>
+    <div className="page-container mt-10">
+     
       <div className="form-container">
         <form className="create-form" onSubmit={handleSubmit}>
-          <h3>Create a New Course</h3>
+          <h3 className="mb-7">Add Video Content</h3>
           <div className="form-group">
-            <label className="form-label">Course Name :</label>
+            <label className="form-label">Video Title :</label>
             <input
               type="text"
               onChange={(e) => setName(e.target.value)}
