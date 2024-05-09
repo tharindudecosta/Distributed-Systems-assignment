@@ -3,7 +3,7 @@ import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
-import "./CourseForm.css"; // Import CSS file for styling
+import "./Form.css"; // Import CSS file for styling
 
 const CourseForm = () => {
   const [name, setName] = useState("");
@@ -77,7 +77,7 @@ const CourseForm = () => {
   return (
     <div className="page-container mt-10">
       <form className="form-container" onSubmit={handleSubmit}>
-        <h3>Create a New Course</h3>
+        <h3 className="mb-7">Create a New Course</h3>
         <div className="form-group">
           <label>Course Name :</label>
           <input
