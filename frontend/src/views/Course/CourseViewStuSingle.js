@@ -1,6 +1,6 @@
 import "react-toastify/dist/ReactToastify.css";
 import { Image } from "cloudinary-react";
-import { useState,useEffect } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 
 const CourseViewStuSingle = ({ course }) => {
@@ -14,48 +14,46 @@ const CourseViewStuSingle = ({ course }) => {
           `http://localhost:4000/api/userSevice/users/getProfile/${insId}`
         );
         setInstructorName(response.data.name);
-
       } catch (error) {
         console.error("Error fetching data:", error);
       }
-
     };
 
-    fetchCourses()
-  },[]);
+    fetchCourses();
+  }, []);
 
   return (
     <div className="course-details">
-      <table className="course-info">
-        <tr>
-          <td>
-            <Image
-              style={{ width: 250 }}
-              cloudName="dsj8tuguz"
-              publicId={course.file.url}
-            />
-          </td>
-          <td>
-            <p className="side">
-              <strong>Name : </strong>
-              {course.name}
+      <a href={"/courseContentAll/" + course._id}>
+        <div className="course-info flex-1 bg-white rounded overflow-hidden shadow hover:bg-gray-300">
+          <div className="course-image">
+            <Image cloudName="dsj8tuguz" publicId={course.file.url} />
+          </div>
+          <div className="course-description">
+            <div className="w-full font-bold text-xl text-gray-800 px-6 p-8 pb-4">
+              <h2>{course.name}</h2>
+            </div>
+            <p>
+              <strong>Course ID:</strong> {course._id}
             </p>
-            <p className="side">
-              <strong>Instructor : </strong>
-              {instructorName}
+            <p>
+              <strong>Instructor:</strong> {instructorName}
             </p>
-            <p className="side">
-              <strong>status : </strong>
-              {course.status}
+            <p>
+              <strong>Status:</strong> {course.status}
             </p>
-            <p className="description">
-              <strong>Description : </strong>
-              {course.description}
+            <p>
+              <strong>Description:</strong> {course.description}
             </p>
-            <br />
-          </td>
-        </tr>
-      </table>
+            <div className="course-actions">
+              <a href={"/courseContentAll/" + course._id}>
+                <button className="update-button">View</button>
+              </a>
+            </div>
+          </div>
+        </div>
+      </a>
+
     </div>
   );
 };

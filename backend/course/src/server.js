@@ -2,17 +2,6 @@ const mongoose = require('mongoose');
 const express = require('express')
 const cors = require('cors')
 
-// const multer = require("multer");
-// const storage = multer.diskStorage({
-//   destination: function(req,file,cb){
-//     return cb(null,"./upload")
-//   },
-//   filename: function(req,file,cb){
-//     return cb(null, `${Date.now()}_${file.originalname}`)
-//   }
-// })
-// const uploadfile = multer({ storage });
-
 const MONGO_URI = "mongodb+srv://user1:pass@cluster0.obfkb3h.mongodb.net/MS_Project?retryWrites=true&w=majority"
 const PORT = 4002
 

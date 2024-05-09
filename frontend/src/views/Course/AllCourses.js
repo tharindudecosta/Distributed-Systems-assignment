@@ -26,10 +26,14 @@ const AllCourses = () => {
   return (
     <div>
       <div className="homeView">
+        <div className="text-white text-lg font-bold">
+          <h2>All Courses</h2>
+        </div>
         <div className="courses">
           <input
             type="text"
             className="inputBar" // Apply CSS class
+            style={{ width: "500px" }}
             placeholder="Search By ID or Name"
             onChange={(e) => setSearch(e.target.value)}
           />

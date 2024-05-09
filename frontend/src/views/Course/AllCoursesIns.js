@@ -28,6 +28,9 @@ const AllCoursesIns = () => {
   return (
     <div>
       <div className="homeView">
+      <div className="text-white text-lg font-bold">
+          <h2>Instructor Course Dashboard</h2>
+        </div>
         <div className="courses">
           <input
             type="text"

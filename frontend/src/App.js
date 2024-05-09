@@ -19,13 +19,16 @@ import CourseContentAll from "./views/CourseContent/CourseContentAll";
 
 import AllPayments from "./views/PaymentManagement/AllPayments";
 import AllEnrollments from "./views/PaymentManagement/AllEnrollments";
+
 import Navbar from "./components/Navbar";
+import Background from "./components/Background";
 
 function App() {
   return (
     <div className="App">
       <BrowserRouter>
         <Navbar />
+        <Background/>
         <div className="pages">
           <Routes>
             <Route
@@ -55,8 +58,7 @@ function App() {
               path="/allcourses"
               element={
                 <Auth>
-                  {" "}
-                  <AllCourses />{" "}
+                  <AllCourses />
                 </Auth>
               }
             />
@@ -64,8 +66,7 @@ function App() {
               path="/inscourse"
               element={
                 <Auth>
-                  {" "}
-                  <AllCoursesIns />{" "}
+                  <AllCoursesIns />
                 </Auth>
               }
             />
@@ -73,8 +74,7 @@ function App() {
               path="/stucourse"
               element={
                 <Auth>
-                  {" "}
-                  <AllCoursesStu />{" "}
+                  <AllCoursesStu />
                 </Auth>
               }
             />
@@ -82,7 +82,6 @@ function App() {
               path="/coursePurchase/:id"
               element={
                 <Auth>
-                  {" "}
                   <CoursePurchase />
                 </Auth>
               }
@@ -91,7 +90,6 @@ function App() {
               path="/CourseUpdate/:id"
               element={
                 <Auth>
-                  {" "}
                   <CourseUpdateForm />
                 </Auth>
               }

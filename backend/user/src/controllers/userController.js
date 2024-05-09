@@ -65,5 +65,8 @@ const getUser = async (req,res) =>{
   }
 
 }
-
-module.exports = { register, login,getUser };
+const getAll = async (req,res) =>{
+  const users = await User.find({}).sort({ createdAt: -1 });
+  res.status(200).json(users);
+}
+module.exports = { register, login,getUser,getAll };

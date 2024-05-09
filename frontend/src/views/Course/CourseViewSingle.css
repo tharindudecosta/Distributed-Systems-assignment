@@ -2,10 +2,10 @@
     max-width: 1000px; /* Set the maximum width */
     margin: 0 auto; /* Center the container horizontally */
     margin-bottom: 20px;
-    border: 1px solid #d87373;
+    /* border: 1px solid #d87373; */
     border-radius: 10px;
     overflow: hidden;
-    background-color: #ffd4b8;
+    /* background-color: #ffd4b8; */
   }
   
   
@@ -72,7 +72,6 @@
   }
   
   .course-description h2 {
-    color: #f14d42;
     font-size: 28px;
     font-family: Impact, fantasy;
   }

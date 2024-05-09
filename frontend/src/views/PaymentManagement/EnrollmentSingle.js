@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 
 const enrollment = ({ enrollment }) => {
   return (
-      <tr>
+      <tr className="h-16">
         <td>{enrollment._id}</td>
         <td>{enrollment.courseId}</td>
         <td>{enrollment.studentId}</td>

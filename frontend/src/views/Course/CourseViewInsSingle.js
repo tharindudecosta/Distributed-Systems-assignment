@@ -24,39 +24,42 @@ const CourseViewInsSingle = ({ course }) => {
 
   return (
     <div className="course-details">
-      <div className="course-info">
-        <div className="course-image">
-          <Image
-            cloudName="dsj8tuguz"
-            publicId={course.file.url}
-            className="course-image"
-          />
-        </div>
-        <div className="course-description">
-          <h2>{course.name}</h2>
-          <p>
-            <strong>Instructor :</strong> {instructorName}
-          </p>
-          <p>
-            <strong>Price (Rs.):</strong> {course.price}
-          </p>
-          <p>
-            <strong>Status :</strong> {course.status}
-          </p>
-          <p>
-            <strong>Description :</strong> {course.description}
-          </p>
-
-          <div className="course-actions">
-            <a href={"/courseContentAll/" + course._id}>
-              <button className="update-button">View</button>
-            </a>
-            <a href={"/courseContentForm/" + course._id}>
-              <button className="buy-button">Add Content</button>
-            </a>
+      <a href={"/courseContentAll/" + course._id}>
+        <div className="course-info flex-1 bg-white rounded overflow-hidden shadow hover:bg-gray-300 ">
+          <div className="course-image">
+            <Image
+              cloudName="dsj8tuguz"
+              publicId={course.file.url}
+              className="course-image"
+            />
+          </div>
+          <div className="course-description">
+            <div className="w-full font-bold text-xl text-gray-800 px-6 p-8 pb-4">
+              <h2>{course.name}</h2>
+            </div>
+            <p>
+              <strong>Instructor :</strong> {instructorName}
+            </p>
+            <p>
+              <strong>Price (Rs.):</strong> {course.price}
+            </p>
+            <p>
+              <strong>Status :</strong> {course.status}
+            </p>
+            <p>
+              <strong>Description :</strong> {course.description}
+            </p>
+            <div className="course-actions">
+              <a href={"/courseContentAll/" + course._id}>
+                <button className="update-button">View</button>
+              </a>
+              <a href={"/courseContentForm/" + course._id}>
+                <button className="buy-button">Add Content</button>
+              </a>
+            </div>
           </div>
         </div>
-      </div>
+      </a>
     </div>
   );
 };
