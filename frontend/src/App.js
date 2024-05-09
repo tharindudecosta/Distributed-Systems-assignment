@@ -19,6 +19,7 @@ import CourseContentAll from "./views/CourseContent/CourseContentAll";
 
 import AllPayments from "./views/Management/AllPayments";
 import AllEnrollments from "./views/Management/AllEnrollments";
+import AllUsers from "./views/Management/AllUsers";
 
 import Navbar from "./components/Navbar";
 import Background from "./components/Background";
@@ -28,7 +29,7 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <Navbar />
-        <Background/>
+        <Background />
         <div className="pages">
           <Routes>
             <Route
@@ -124,6 +125,14 @@ function App() {
               element={
                 <Auth>
                   <AllEnrollments />
+                </Auth>
+              }
+            />
+            <Route
+              path="/allUsers"
+              element={
+                <Auth>
+                  <AllUsers />
                 </Auth>
               }
             />

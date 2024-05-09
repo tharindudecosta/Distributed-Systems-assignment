@@ -8,7 +8,7 @@ const userSchema = new mongoose.Schema({
   role: { type: String, required: true, enum: ["admin", "instructor", "student"] },
 },
 
-{ versionKey: false }
+{ timestamps: true }
 
 );
 

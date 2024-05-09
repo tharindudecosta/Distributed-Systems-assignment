@@ -93,7 +93,7 @@ const Navbar = () => {
                       href="/allPayments"
                       className="block px-4 py-2 text-sm text-white hover:bg-gray-700"
                     >
-                      Pyament management
+                      Payment management
                     </a>
                     <a
                       href="/allEnrollments"
@@ -102,7 +102,7 @@ const Navbar = () => {
                       Enrollment management
                     </a>
                     <a
-                      href="#"
+                      href="/allUsers"
                       className="block px-4 py-2 text-sm text-white hover:bg-gray-700"
                     >
                       User management
