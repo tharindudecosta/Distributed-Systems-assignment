@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from "react";
 
 export default function VideoPlayer(props) {
-    const {width, height,publicId} = props
+    const {width, height,videoUrl} = props
   const cloudinaryRef = useRef();
   const videoRef = useRef();
 
@@ -15,7 +15,8 @@ export default function VideoPlayer(props) {
   return (
     <div>
       <video ref={videoRef} 
-      data-cld-public-id="https://res.cloudinary.com/dsj8tuguz/video/upload/v1715074361/eqfa0nrbpmy6lkwpxt7v.mp4" 
+      data-cld-public-id={videoUrl} 
+      // data-cld-public-id="https://res.cloudinary.com/dsj8tuguz/video/upload/v1715074361/eqfa0nrbpmy6lkwpxt7v.mp4" 
       width={width}
       height={height}
       controls/>

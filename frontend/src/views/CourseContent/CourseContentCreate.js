@@ -77,7 +77,7 @@ const CourseContentCreate = () => {
   return (
     <div className="page-container mt-10">
      
-      <div className="form-container">
+      <div className="form-container bg-white">
         <form className="create-form" onSubmit={handleSubmit}>
           <h3 className="mb-7">Add Video Content</h3>
           <div className="form-group">
