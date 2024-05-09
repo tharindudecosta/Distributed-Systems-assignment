@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useState } from "react";
-import { useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [email, setEmail] = useState();
@@ -33,8 +33,6 @@ const Login = () => {
       } else {
         throw new error("Login error");
       }
-
-
     } catch (error) {
       setError(error.response?.data.message);
       console.error(error);
@@ -44,12 +42,12 @@ const Login = () => {
   return (
     <div className="home">
       <section className="">
-        <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
+        <div className="flex flex-col items-center px-6 py-8 mx-auto md:h-screen lg:py-0">
+          <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white p-16">
+            Login to your Easy learn account
+          </h1>
           <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
             <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
-              <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
-                Login to your account
-              </h1>
               <form className="space-y-4 md:space-y-6" action="#">
                 <div>
                   <label
@@ -99,7 +97,7 @@ const Login = () => {
                 <p className="text-sm font-light text-gray-500 dark:text-gray-400">
                   Don’t have an account yet?{" "}
                   <a
-                    href="#"
+                    href="/Register"
                     className="font-medium text-primary-600 hover:underline dark:text-primary-500"
                   >
                     Sign up

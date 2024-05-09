@@ -17,8 +17,8 @@ import CourseUpdateForm from "./views/Course/CourseUpdateForm";
 import CourseContentCreate from "./views/CourseContent/CourseContentCreate";
 import CourseContentAll from "./views/CourseContent/CourseContentAll";
 
-import AllPayments from "./views/PaymentManagement/AllPayments";
-import AllEnrollments from "./views/PaymentManagement/AllEnrollments";
+import AllPayments from "./views/Management/AllPayments";
+import AllEnrollments from "./views/Management/AllEnrollments";
 
 import Navbar from "./components/Navbar";
 import Background from "./components/Background";
