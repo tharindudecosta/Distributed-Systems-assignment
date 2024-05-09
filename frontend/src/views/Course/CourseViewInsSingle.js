@@ -81,10 +81,10 @@ const CourseViewInsSingle = ({ course }) => {
               </a>
               <a href={"/courseContentForm/" + course._id}>
                 <button className="buy-button">Add Content</button>
-                <button className="delete-button" onClick={handleClick}>
-                  Delete
-                </button>
               </a>
+              <button className="delete-button" onClick={handleClick}>
+                Delete
+              </button>
             </div>
           </div>
         </div>

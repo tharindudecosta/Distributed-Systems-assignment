@@ -93,9 +93,7 @@ const getContentByCourse = async (req, res) => {
 
   const objectId = new mongoose.Types.ObjectId(id);
 
-  const courseContent = await CourseContent.find({ course: objectId }).sort({
-    createdAt: -1,
-  });
+  const courseContent = await CourseContent.find({ course: objectId }).sort({});
 
   if (!courseContent) {
     return res.status(404).json({ error: "CourseContent not found" });
@@ -109,5 +107,5 @@ module.exports = {
   createCourseContent,
   deleteCourseContents,
   getSingleContent,
-  getContentByCourse
+  getContentByCourse,
 };
