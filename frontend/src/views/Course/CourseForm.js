@@ -1,18 +1,20 @@
 import { useState } from "react";
 import axios from "axios";
-import { ToastContainer, toast } from "react-toastify";
+import CircularProgress from "@mui/material/CircularProgress";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
 import "./Form.css"; // Import CSS file for styling
+import swal from "sweetalert2";
 
 const CourseForm = () => {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
-  const [instructorId, setInstructorId] = useState("");
   const [price, setPrice] = useState("");
   const [file, setFile] = useState(null);
   const [fileUrl, setFileUrl] = useState(null);
   const [fileId, setFileId] = useState(null);
+
+  const [isUploading, setIsUploading] = useState(false);
 
   const [error, setError] = useState(null);
   const [emptyFields, setEmptyFields] = useState([]);
@@ -22,9 +24,15 @@ const CourseForm = () => {
     e.preventDefault();
 
     if (!name || !description || !price || !file) {
-      setError("Please fill in all required fields.");
+      swal.fire({
+        title: "Oops!",
+        text: "There are empty feilds",
+        icon: "error",
+      });
       return;
     }
+
+    setIsUploading(true);
 
     const formData = new FormData();
     formData.append("file", file);
@@ -63,14 +71,29 @@ const CourseForm = () => {
           );
 
           if (response.status === 201) {
-            navigate("/allcourses");
+            swal.fire({
+              title: "Good job!",
+              text: "User Registered Successfully!",
+              icon: "success",
+            });
+            setName("")
+            setDescription("")
+            setPrice("")
+            setFile("")
           }
         } catch (error) {
+          swal.fire({
+            title: "Oops!",
+            text: "Course Creation failed",
+            icon: "error",
+          });
           console.error(error);
         }
       }
     } catch (error) {
       console.error(error);
+    } finally {
+      setIsUploading(false);
     }
   };
 
@@ -112,7 +135,7 @@ const CourseForm = () => {
             name="filename"
           />
           {file && (
-            <video
+            <img
               src={URL.createObjectURL(file)}
               width="320"
               height="240"
@@ -124,21 +147,11 @@ const CourseForm = () => {
           <button className="form-button" type="submit">
             Create Course
           </button>
+          {isUploading && <CircularProgress />}{" "}
+
           {error && <div className="error">{error}</div>}
         </div>
       </form>
-      <ToastContainer
-        position="top-right"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="light"
-      />
     </div>
   );
 };

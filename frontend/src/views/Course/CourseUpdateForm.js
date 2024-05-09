@@ -4,6 +4,8 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useParams } from "react-router-dom";
 import "./Form.css"; // Import CSS file for styling
+import CircularProgress from "@mui/material/CircularProgress";
+import swal from "sweetalert2";
 
 const CourseUpdateForm = () => {
   const { id } = useParams();
@@ -19,12 +21,15 @@ const CourseUpdateForm = () => {
   const [fileUrl, setFileUrl] = useState(null);
   const [fileId, setFileId] = useState(null);
   const [newUpload, setNewUpload] = useState(false);
+  const [isUploading, setIsUploading] = useState(false);
 
   const [error, setError] = useState(null);
   const [emptyFields, setEmptyFields] = useState([]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    setIsUploading(true);
 
     if (newUpload) {
       const formData = new FormData();
@@ -68,15 +73,32 @@ const CourseUpdateForm = () => {
 
             if (response.status == 200) {
               console.log(response);
+              swal.fire({
+                title: "Good job!",
+                text: "Course Updated Successfully!",
+                icon: "success",
+              });
             }
           } catch (error) {
+            swal.fire({
+              title: "Oops!",
+              text: "Course Update failed",
+              icon: "error",
+            });
             console.error(error);
           }
         } else {
           console.log(cloudResponse);
         }
       } catch (error) {
+        swal.fire({
+          title: "Oops!",
+          text: "Image Upload failed",
+          icon: "error",
+        });
         console.error(error);
+      } finally {
+        setIsUploading(false);
       }
     } else {
       try {
@@ -99,9 +121,21 @@ const CourseUpdateForm = () => {
 
         if (response.status == 200) {
           console.log(response);
+          swal.fire({
+            title: "Good job!",
+            text: "User Registered Successfully!",
+            icon: "success",
+          });
         }
       } catch (error) {
+        swal.fire({
+          title: "Oops!",
+          text: "Course Update failed",
+          icon: "error",
+        });
         console.error(error);
+      } finally {
+        setIsUploading(false);
       }
     }
   };
@@ -129,7 +163,7 @@ const CourseUpdateForm = () => {
           setInstructorId(response.data.instructor);
           setPrice(response.data.price);
           setStatus(response.data.status);
-          setFileOld(response.data.file)
+          setFileOld(response.data.file);
         }
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -149,7 +183,9 @@ const CourseUpdateForm = () => {
             type="text"
             onChange={(e) => setName(e.target.value)}
             value={name}
-            className={emptyFields.includes("name") ? "form-input error" : "form-input"}
+            className={
+              emptyFields.includes("name") ? "form-input error" : "form-input"
+            }
           />
         </div>
         <div className="form-group">
@@ -158,7 +194,9 @@ const CourseUpdateForm = () => {
             type="number"
             onChange={(e) => setPrice(e.target.value)}
             value={price}
-            className={emptyFields.includes("price") ? "form-input error" : "form-input"}
+            className={
+              emptyFields.includes("price") ? "form-input error" : "form-input"
+            }
           />
         </div>
         <div className="form-group">
@@ -168,7 +206,11 @@ const CourseUpdateForm = () => {
             type="text"
             onChange={(e) => setDescription(e.target.value)}
             value={description}
-            className={emptyFields.includes("description") ? "form-input error" : "form-input"}
+            className={
+              emptyFields.includes("description")
+                ? "form-input error"
+                : "form-input"
+            }
           />
         </div>
         <div className="form-group">
@@ -181,22 +223,12 @@ const CourseUpdateForm = () => {
             name="filename"
           />
         </div>
-        <button type="submit" className="form-button">Update</button>
+        <button type="submit" className="form-button">
+          Update
+        </button>
+        {isUploading && <CircularProgress />}{" "}
         {error && <div className="error">{error}</div>}
       </form>
-
-      <ToastContainer
-        position="top-right"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="light"
-      />
     </div>
   );
 };

@@ -1,20 +1,51 @@
 import React from "react";
 import VideoPlayer from "../../components/VideoPlayer";
 import axios from "axios";
+import swal from "sweetalert2";
 
 const CourseContentSingle = ({ content }) => {
   const handleClick = async (e) => {
     e.preventDefault();
     try {
-      if (window.confirm("Are You sure you want to delete record?")) {
-        const response = await axios.delete(
-          `http://localhost:4000/api/courseContentService/courseContents/delete/${content._id}`
-        );
-        if (response.status == 200) {
-          window.location.reload();
-        }
-      }
+      swal
+        .fire({
+          title: "Are you sure you want to delete this record?",
+          text: "You won't be able to revert this!",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#3085d6",
+          cancelButtonColor: "#d33",
+          confirmButtonText: "Yes, delete it!",
+        })
+        .then((result) => {
+          if (result.isConfirmed) {
+            const deleteCourse = async () => {
+              const response = await axios.delete(
+                `http://localhost:4000/api/courseContentService/courseContents/delete/${content._id}`
+              );
+              console.log(response);
+              if (response.status === 200) {
+                swal
+                  .fire({
+                    title: "Deleted!",
+                    text: "Your file has been deleted.",
+                    icon: "success",
+                  })
+                  .then(() => {
+                    window.location.reload();
+                  });
+              }
+            };
+
+            deleteCourse();
+          }
+        });
     } catch (error) {
+      swal.fire(
+        "Error!",
+        "An error occurred while deleting the item.",
+        "error"
+      );
       console.error(error);
     }
   };
@@ -33,7 +64,9 @@ const CourseContentSingle = ({ content }) => {
               <strong>Description : </strong>
               {content.description}
             </p>
-            <button className="delete-button pt-4" onClick={handleClick}>Delete</button>
+            <button className="delete-button pt-4" onClick={handleClick}>
+              Delete
+            </button>
           </td>
         </tr>
       </table>

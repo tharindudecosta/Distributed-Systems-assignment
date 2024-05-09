@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import swal from "sweetalert2";
 
 const Login = () => {
   const [email, setEmail] = useState();
@@ -29,11 +30,22 @@ const Login = () => {
         localStorage.setItem("token", JSON.stringify(response.data.token));
         localStorage.setItem("user", JSON.stringify(response.data.userDto));
         console.log(response);
+
+
+        swal.fire({
+          title: "Good job!",
+          text: "User Login Success!",
+          icon: "success",
+        });
+
         navigate("/");
-      } else {
-        throw new error("Login error");
-      }
+      } 
     } catch (error) {
+      swal.fire({
+        title: "Oops!",
+        text: "Login Failed",
+        icon: "error",
+      });
       setError(error.response?.data.message);
       console.error(error);
     }
