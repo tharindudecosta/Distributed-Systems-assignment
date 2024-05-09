@@ -1,6 +1,5 @@
 import React from 'react'
-import background from "./background.jpg"
-import blackbackground from "./black-background.jpg"
+import blackbackground from "../images/black-background.jpg"
 const Background = () => {
   return (
     <div>
