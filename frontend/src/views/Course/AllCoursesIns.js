@@ -8,8 +8,8 @@ const AllCoursesIns = () => {
 
   useEffect(() => {
     const fetchCourses = async () => {
-      const user =  JSON.parse(localStorage.getItem("user"));
-      const insId = user._id
+      const user = JSON.parse(localStorage.getItem("user"));
+      const insId = user._id;
 
       try {
         const response = await axios.get(
@@ -19,7 +19,6 @@ const AllCoursesIns = () => {
       } catch (error) {
         console.error("Error fetching data:", error);
       }
-
     };
 
     fetchCourses();
@@ -28,21 +27,30 @@ const AllCoursesIns = () => {
   return (
     <div>
       <div className="homeView">
-      <div className="text-white text-lg font-bold">
+        <div className="text-white text-lg font-bold">
           <h2>Instructor Course Dashboard</h2>
         </div>
         <div className="courses">
           <input
             type="text"
             style={{ width: "500px" }}
-            placeholder="Search By ID or Name"
+            placeholder="Search"
             className="inputBar"
             onChange={(e) => setSearch(e.target.value)}
           />
           {courses &&
             courses
               .filter((course) => {
-                if (course.name.toLowerCase().includes(search.toLowerCase())) {
+                if (
+                  course.name.toLowerCase().includes(search.toLowerCase()) ||
+                  course.status.toLowerCase().includes(search.toLowerCase()) ||
+                  course.instructor
+                    .toLowerCase()
+                    .includes(search.toLowerCase()) ||
+                  course.description
+                    .toLowerCase()
+                    .includes(search.toLowerCase())
+                ) {
                   return course;
                 } else if (search === "") {
                   return course;

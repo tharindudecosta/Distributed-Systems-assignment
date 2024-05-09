@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import swal from "sweetalert2";
 
 const RegisterStudent = () => {
   const [email, setEmail] = useState();
@@ -16,31 +17,62 @@ const RegisterStudent = () => {
     e.preventDefault();
     setError("");
 
-    const registerDto = {
-      name: name,
-      email: email,
-      phone: phone,
-      password: password,
-      role: role,
-    };
+    let re =
+      /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
-    try {
-      const response = await axios.post(
-        `http://localhost:4000/api/userSevice/users/register`,
-        registerDto
-      );
+    if (
+      email == null ||
+      password == null ||
+      name == null ||
+      phone == null ||
+      role == null
+    ) {
+      swal.fire({
+        title: "Oops!",
+        text: "There are empty feilds",
+        icon: "error",
+      });
+      return;
+    } else if (!re.test(email)) {
+      swal.fire({
+        title: "Oops!",
+        text: "Invalid Email",
+        icon: "error",
+      });
+      return;
 
-      console.log(response);
+    } else {
+      const registerDto = {
+        name: name,
+        email: email,
+        phone: phone,
+        password: password,
+        role: role,
+      };
 
-      if (response.status == 201) {
+      try {
+        const response = await axios.post(
+          `http://localhost:4000/api/userSevice/users/register`,
+          registerDto
+        );
+
         console.log(response);
-        navigate("/Login");
-      } else {
-        throw new error("Login error");
+
+        if (response.status == 201) {
+          swal.fire({
+            title: "Good job!",
+            text: "User Registered Successfully!",
+            icon: "success",
+          });
+          console.log(response);
+          navigate("/Login");
+        } else {
+          throw new error("Login error");
+        }
+      } catch (error) {
+        setError(error.response?.data.message);
+        console.error(error);
       }
-    } catch (error) {
-      setError(error.response?.data.message);
-      console.error(error);
     }
   };
 

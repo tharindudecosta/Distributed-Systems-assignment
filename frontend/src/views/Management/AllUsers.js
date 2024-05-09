@@ -93,7 +93,7 @@ const AllUsers = () => {
       <button
         onClick={() => createPDF(users)}
         title="Download PDF"
-        class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center"
+        class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 m-4 rounded inline-flex items-center"
       >
         <svg
           class="fill-current w-4 h-4 mr-2"
@@ -104,6 +104,9 @@ const AllUsers = () => {
         </svg>
         Download
       </button>
+      <a href={"/RegisterUser"}>
+        <button className="buy-button">Add New User</button>
+      </a>
       <table className="min-w-full bg-slate-200 m-1">
         <thead>
           <tr className="bg-zinc-950 text-zinc-100">

@@ -3,34 +3,36 @@ import CourseViewStuSingle from "./CourseViewStuSingle";
 import axios from "axios";
 
 const AllCoursesStu = () => {
-  const [courses,setCourses] = useState()
-  const [enrollment,setEnrollments] = useState()
+  const [courses, setCourses] = useState();
+  const [enrollment, setEnrollments] = useState();
   const [search, setSearch] = useState("");
 
   useEffect(() => {
     const fetchCourses = async () => {
       const user = JSON.parse(localStorage.getItem("user"));
       const studentId = user._id;
-      let enrollmentArray = []
+      let enrollmentArray = [];
 
       try {
-        const response = await axios.get(`http://localhost:4000/api/enrollmentService/enrollments/student/${studentId}`);
+        const response = await axios.get(
+          `http://localhost:4000/api/enrollmentService/enrollments/student/${studentId}`
+        );
         // setCourses(response.data);
-        if(response.status==200){
+        if (response.status == 200) {
           try {
-            for(let i = 0 ; i < response.data.length;i++){
+            for (let i = 0; i < response.data.length; i++) {
               const courseResponse = await axios.get(
                 `http://localhost:4000/api/courseService/courses/${response.data[i].courseId}`
               );
-              enrollmentArray.push(courseResponse.data)
+              enrollmentArray.push(courseResponse.data);
             }
-            setCourses(enrollmentArray)
+            setCourses(enrollmentArray);
           } catch (error) {
-            console.error('Error fetching data:', error);
+            console.error("Error fetching data:", error);
           }
         }
       } catch (error) {
-        console.error('Error fetching data:', error);
+        console.error("Error fetching data:", error);
       }
     };
 
@@ -39,27 +41,35 @@ const AllCoursesStu = () => {
 
   return (
     <div>
-
       <div className="homeView">
-      <div className="text-white text-lg font-bold">
+        <div className="text-white text-lg font-bold">
           <h2>Student Course Dashboard</h2>
         </div>
         <div className="courses">
           <input
             type="text"
             style={{ width: "500px" }}
-            placeholder="Search By ID or Name"
+            placeholder="Search"
             className="inputBar"
             onChange={(e) => setSearch(e.target.value)}
           />
           {courses &&
             courses
               .filter((course) => {
-                if (course.name.toLowerCase().includes(search.toLowerCase())) {
+                if (
+                  course.name.toLowerCase().includes(search.toLowerCase()) ||
+                  course.status.toLowerCase().includes(search.toLowerCase()) ||
+                  course.instructor
+                    .toLowerCase()
+                    .includes(search.toLowerCase()) ||
+                  course.description
+                    .toLowerCase()
+                    .includes(search.toLowerCase())
+                ) {
                   return course;
-                } else if (search === "" ) {
+                } else if (search === "") {
                   return course;
-                } 
+                }
               })
               .map((course) => (
                 <CourseViewStuSingle key={course._id} course={course} />

@@ -3,6 +3,7 @@ import { Image } from "cloudinary-react";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import "./CourseViewSingle.css"; // Import CSS file for styling
+import swal from "sweetalert2";
 
 const CoursesView = ({ course }) => {
   const [instructorName, setInstructorName] = useState();
@@ -10,25 +11,52 @@ const CoursesView = ({ course }) => {
   const handleClick = async (e) => {
     e.preventDefault();
     try {
-      if (window.confirm("Are you sure you want to delete this record?")) {
-        const deletedCourse = {
-          name: course.name,
-          description: course.description,
-          instructor: course.instructor,
-          price: course.price,
-          file: course.file,
-          status: "Inactive",
-        };
-        console.log(course._id);
-        const response = await axios.put(
-          `http://localhost:4000/api/courseService/courses/update/${course._id}`,
-          deletedCourse
-        );
-        if (response.status === 200) {
-          window.location.reload();
-        }
-      }
+      swal
+        .fire({
+          title: "Are you sure you want to delete this record?",
+          text: "You won't be able to revert this!",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#3085d6",
+          cancelButtonColor: "#d33",
+          confirmButtonText: "Yes, delete it!",
+        })
+        .then((result) => {
+          if (result.isConfirmed) {
+
+            const deleteCourse = async ()=>{
+              const deletedCourse = {
+                name: course.name,
+                description: course.description,
+                instructor: course.instructor,
+                price: course.price,
+                file: course.file,
+                status: "Inactive",
+              };
+              const response = await axios.put(
+                `http://localhost:4000/api/courseService/courses/update/${course._id}`,
+                deletedCourse
+              );
+              console.log(response);
+              if (response.status === 200) {
+                swal.fire({
+                  title: "Deleted!",
+                  text: "Your file has been deleted.",
+                  icon: "success",
+                }).then(()=>{window.location.reload()})
+              }
+            }
+
+            deleteCourse()
+          }
+        })
+        
     } catch (error) {
+      swal.fire(
+        'Error!',
+        'An error occurred while deleting the item.',
+        'error'
+      );
       console.error(error);
     }
   };

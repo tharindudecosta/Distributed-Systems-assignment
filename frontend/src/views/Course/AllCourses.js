@@ -34,13 +34,18 @@ const AllCourses = () => {
             type="text"
             className="inputBar" // Apply CSS class
             style={{ width: "500px" }}
-            placeholder="Search By ID or Name"
+            placeholder="Search"
             onChange={(e) => setSearch(e.target.value)}
           />
           {courses &&
             courses
               .filter((course) => {
-                if (course.name.toLowerCase().includes(search.toLowerCase())) {
+                if (
+                  course.name.toLowerCase().includes(search.toLowerCase()) ||
+                  course.status.toLowerCase().includes(search.toLowerCase()) ||
+                  course.instructor.toLowerCase().includes(search.toLowerCase()) ||
+                  course.description.toLowerCase().includes(search.toLowerCase())
+                ) {
                   return course;
                 } else if (search === "") {
                   return course;

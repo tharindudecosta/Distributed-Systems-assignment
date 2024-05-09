@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import CircularProgress from "@mui/material/CircularProgress";
 import { useParams } from "react-router-dom";
 import "./CourseContentCreate.css"; // Import CSS file for styling
+import swal from "sweetalert2";
 
 const CourseContentCreate = () => {
   const { id } = useParams();
@@ -22,6 +23,11 @@ const CourseContentCreate = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!name || !description || !video) {
+      swal.fire({
+        title: "Oops!",
+        text: "There are empty feilds",
+        icon: "error",
+      });
       setEmptyFields(["title", "description", "video"]);
       return;
     }
@@ -43,7 +49,7 @@ const CourseContentCreate = () => {
           public_id: videoResponse.data.asset_id,
           url: videoResponse.data.secure_url,
         };
-        
+
         const content = {
           title: name,
           description: description,
@@ -58,6 +64,11 @@ const CourseContentCreate = () => {
 
         if (response.status === 200) {
           console.log(response);
+          swal.fire({
+            title: "Good job!",
+            text: "Content created Successfully!",
+            icon: "success",
+          });
           // Clear form fields after successful submission
           setName("");
           setDescription("");
@@ -68,6 +79,11 @@ const CourseContentCreate = () => {
       }
     } catch (error) {
       console.error("Error:", error);
+      swal.fire({
+        title: "Oops!",
+        text: "Content Creation failed",
+        icon: "error",
+      });
       setError("Error occurred while uploading video.");
     } finally {
       setIsUploading(false);
@@ -76,7 +92,6 @@ const CourseContentCreate = () => {
 
   return (
     <div className="page-container mt-10">
-     
       <div className="form-container bg-white">
         <form className="create-form" onSubmit={handleSubmit}>
           <h3 className="mb-7">Add Video Content</h3>
@@ -86,7 +101,11 @@ const CourseContentCreate = () => {
               type="text"
               onChange={(e) => setName(e.target.value)}
               value={name}
-              className={emptyFields.includes("title") ? "form-input error" : "form-input"}
+              className={
+                emptyFields.includes("title")
+                  ? "form-input error"
+                  : "form-input"
+              }
             />
           </div>
           <div className="form-group">
@@ -96,7 +115,11 @@ const CourseContentCreate = () => {
               type="text"
               onChange={(e) => setDescription(e.target.value)}
               value={description}
-              className={emptyFields.includes("description") ? "form-input error" : "form-input"}
+              className={
+                emptyFields.includes("description")
+                  ? "form-input error"
+                  : "form-input"
+              }
             />
           </div>
           <div className="form-group">
@@ -105,7 +128,11 @@ const CourseContentCreate = () => {
               type="file"
               accept="video/*, audio/*"
               onChange={handleFileChange}
-              className={emptyFields.includes("video") ? "form-input error" : "form-input"}
+              className={
+                emptyFields.includes("video")
+                  ? "form-input error"
+                  : "form-input"
+              }
             />
           </div>
           {/* Render loading icon if uploading */}

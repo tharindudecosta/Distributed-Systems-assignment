@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import swal from "sweetalert2";
 
 const RegisterUser = () => {
   const [email, setEmail] = useState();
@@ -16,30 +17,60 @@ const RegisterUser = () => {
     e.preventDefault();
     setError("");
 
-    const registerDto = {
-      name: name,
-      email: email,
-      phone: phone,
-      password: password,
-      role: role,
-    };
+    let re =
+      /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
-    try {
-      const response = await axios.post(
-        `http://localhost:4000/api/userSevice/users/register`,
-        registerDto
-      );
+    if (email == null || password ==null || name == null || phone == null || role == null) {
+      swal.fire({
+        title: "Oops!",
+        text: "There are empty feilds",
+        icon: "error",
+      });
+    } else if (!re.test(email)) {
+      swal.fire({
+        title: "Oops!",
+        text: "Invalid Email",
+        icon: "error",
+      });
+    } else {
+      const registerDto = {
+        name: name,
+        email: email,
+        phone: phone,
+        password: password,
+        role: role,
+      };
 
-      console.log(response);
+      try {
+        const response = await axios.post(
+          `http://localhost:4000/api/userSevice/users/register`,
+          registerDto
+        );
 
-      if (response.status == 201) {
         console.log(response);
-      } else {
-        throw new error("Login error");
+
+        if (response.status == 201) {
+          swal.fire({
+            title: "Good job!",
+            text: "User Registered Successfully!",
+            icon: "success",
+          });
+          setEmail("");
+          setPassword("");
+          setname("");
+          setPhone("");
+        } else {
+          throw new error("Login error");
+        }
+      } catch (error) {
+        swal.fire({
+          title: "Oops!",
+          text: "Registration Error occured",
+          icon: "error",
+        });
+        setError(error.response?.data.message);
+        console.error(error);
       }
-    } catch (error) {
-      setError(error.response?.data.message);
-      console.error(error);
     }
   };
 
@@ -58,7 +89,7 @@ const RegisterUser = () => {
                     for="email"
                     className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                   >
-                    Your Name
+                    User Name
                   </label>
                   <input
                     type="text"
@@ -76,7 +107,7 @@ const RegisterUser = () => {
                     for="email"
                     className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                   >
-                    Your email
+                    User email
                   </label>
                   <input
                     type="email"
@@ -95,7 +126,7 @@ const RegisterUser = () => {
                     for="password"
                     className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                   >
-                    OPhone Number
+                    Phone Number
                   </label>
                   <input
                     type="text"
@@ -135,8 +166,13 @@ const RegisterUser = () => {
                   >
                     role
                   </label>
-                  
-                  <select name="role" id="role" value={role} onChange={(e) => setRole(e.target.value)}>
+
+                  <select
+                    name="role"
+                    id="role"
+                    value={role}
+                    onChange={(e) => setRole(e.target.value)}
+                  >
                     <option value="admin">Admin</option>
                     <option value="instructor">Instructor</option>
                   </select>
