@@ -76,7 +76,7 @@ const CourseForm = () => {
 
   return (
     <div className="page-container mt-10">
-      <form className="form-container" onSubmit={handleSubmit}>
+      <form className="form-container bg-white" onSubmit={handleSubmit}>
         <h3 className="mb-7">Create a New Course</h3>
         <div className="form-group">
           <label>Course Name :</label>

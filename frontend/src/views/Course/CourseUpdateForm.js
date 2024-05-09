@@ -141,7 +141,7 @@ const CourseUpdateForm = () => {
 
   return (
     <div className="page-container mt-10">
-      <form onSubmit={handleSubmit} className="form-container">
+      <form onSubmit={handleSubmit} className="form-container bg-white">
         <h3 className="mb-7">Update Course</h3>
         <div className="form-group">
           <label>Course Name :</label>

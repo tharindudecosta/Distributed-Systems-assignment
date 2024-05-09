@@ -41,6 +41,9 @@ const AllCoursesStu = () => {
     <div>
 
       <div className="homeView">
+      <div className="text-white text-lg font-bold">
+          <h2>Student Course Dashboard</h2>
+        </div>
         <div className="courses">
           <input
             type="text"

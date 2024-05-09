@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import "./styles/index.css";
+import "./styles/Background.css"
 import App from "./App";
 import "@fortawesome/fontawesome-svg-core/styles.css";
 

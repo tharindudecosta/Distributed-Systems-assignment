@@ -2,7 +2,6 @@ const Course = require("../models/Course");
 const User = require("../models/User");
 const mongoose = require("mongoose");
 
-
 const createCourse = async (req, res) => {
   try {
     const { name, description, instructorId, price ,file } = req.body;
