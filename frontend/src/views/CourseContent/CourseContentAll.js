@@ -46,7 +46,9 @@ const CourseContentAll = () => {
             );
             setCourseContent(contentResponse.data);
             console.log(contentResponse);
-          } catch (error) {}
+          } catch (error) {
+            console.error("Error fetching data:", error);
+          }
         }
       } catch (error) {
         console.error("Error fetching data:", error);
