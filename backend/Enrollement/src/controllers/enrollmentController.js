@@ -28,7 +28,7 @@ const enrollStudent = async (req, res) => {
   });
 
   if (enrolledRows.length > 0) {
-    res.status(400).json({ error: "You are already enrolled" });
+    res.status(201).json({msg: "You are already enrolled" });
   } else {
     try {
       const enrolledCourse = await Enrollment.create({

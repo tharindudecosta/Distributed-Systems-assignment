@@ -4,6 +4,9 @@ import axios from "axios";
 import swal from "sweetalert2";
 
 const CourseContentSingle = ({ content }) => {
+  const user = JSON.parse(localStorage.getItem("user"));
+  const role = user?.role;
+
   const handleClick = async (e) => {
     e.preventDefault();
     try {
@@ -64,9 +67,13 @@ const CourseContentSingle = ({ content }) => {
               <strong>Description : </strong>
               {content.description}
             </p>
-            <button className="delete-button pt-4" onClick={handleClick}>
-              Delete
-            </button>
+            {role == "student" ? (
+              ""
+            ) : (
+              <button className="delete-button pt-4" onClick={handleClick}>
+                Delete
+              </button>
+            )}
           </td>
         </tr>
       </table>
