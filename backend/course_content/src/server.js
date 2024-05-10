@@ -32,7 +32,7 @@ mongoose.connect(MONGO_URI)
     console.log('Connected to mongo database')
     // listen to port
     app.listen(PORT, () => {
-      console.log('Course service listening on port',PORT)
+      console.log('Course content service listening on port',PORT)
     })
   })
   .catch((err) => {

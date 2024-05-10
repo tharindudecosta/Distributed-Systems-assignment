@@ -61,7 +61,7 @@ const Navbar = () => {
                       >
                         All Courses
                       </a>
-                      {role == "student" ? (
+                      {role == "instuctor" ? (
                         <a
                           href="/inscourse"
                           className="block px-4 py-2 text-sm text-white hover:bg-gray-700"
