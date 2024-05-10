@@ -6,6 +6,9 @@ import swal from "sweetalert2";
 
 const CourseViewInsSingle = ({ course }) => {
   const [instructorName, setInstructorName] = useState();
+  
+  const user = JSON.parse(localStorage.getItem("user"));
+  const role = user?.role;
 
   const handleClick = async (e) => {
     e.preventDefault();

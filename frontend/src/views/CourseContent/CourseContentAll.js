@@ -7,6 +7,9 @@ import { Image } from "cloudinary-react";
 const CourseContentAll = () => {
   const { id } = useParams();
 
+  const user = JSON.parse(localStorage.getItem("user"));
+  const role = user?.role;
+
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [instructor, setInstructor] = useState("");
@@ -76,9 +79,14 @@ const CourseContentAll = () => {
               onChange={(e) => setSearch(e.target.value)}
             />
 
-            <a href={"/courseContentForm/" + id}>
-              <button className="buy-button">Add Content</button>
-            </a>
+            {role == "student" ? (
+              ""
+            ) : (
+              <a href={"/courseContentForm/" + id}>
+                <button className="buy-button">Add Content</button>
+              </a>
+            )}
+
             {courseContent &&
               courseContent
                 .filter((content) => {
