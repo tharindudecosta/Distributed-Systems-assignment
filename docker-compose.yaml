@@ -1,0 +1,30 @@
+version: "3"
+services:
+  api_gateway_service:
+    build: ./backend/api_gateway
+    ports:
+      - 4000:4000
+  user_service:
+    build: ./backend/user
+    ports:
+      - 4001:4001
+  course_service:
+    build: ./backend/course
+    ports:
+      - 4002:4002
+  course_content_service:
+    build: ./backend/course_content
+    ports:
+      - 4003:4003
+  enrollement_service:
+    build: ./backend/enrollement
+    ports:
+      - 4004:4004
+  payment_service:
+    build: ./backend/payment
+    ports:
+      - 4005:4005
+  frontend:
+    build: ./frontend
+    ports:
+      - 3000:3000
