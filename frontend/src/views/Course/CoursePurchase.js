@@ -5,6 +5,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { Image } from "cloudinary-react";
 import { useParams } from "react-router-dom";
 import "./CoursePurchase.css"; // Import CSS file for styling
+import emailjs from "@emailjs/browser";
 
 const CoursePurchase = () => {
   const [name, setName] = useState("");
@@ -18,6 +19,9 @@ const CoursePurchase = () => {
   const [emptyFields, setEmptyFields] = useState([]);
 
   const { id } = useParams();
+
+  const user = JSON.parse(localStorage.getItem("user"));
+  const userName = user.name
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -50,6 +54,7 @@ const CoursePurchase = () => {
           );
           if (response.status === 200) {
             toast.success("Payment completed");
+            sendEmail()
           }
         } catch (error) {
           console.error(error);
@@ -82,6 +87,32 @@ const CoursePurchase = () => {
     fetchCourseInfo();
   }, []);
 
+  const sendEmail = (e) => {
+    e.preventDefault();
+
+    emailjs
+      .send(
+        "service_pg5ngyf",
+        "template_iaod09l",
+        {
+            to_name: userName,
+            from_name:"Easy learn",
+            message: 'You have success fully been enrolled in the '+ JSON.stringify(name) +' course',
+            to_email: "tharindunethmal@gmail.com"
+          },
+
+        "YZdoo0Nr0so-f-j-Y"
+      )
+      .then(
+        (result) => {
+          console.log(result.text);
+        },
+        (error) => {
+          console.log(error.text);
+        }
+      );
+  };
+
   return (
     <div className="course-purchase-container">
       <div className="course-details">
@@ -113,15 +144,15 @@ const CoursePurchase = () => {
         <br></br>
         <div className="form-group">
           <label>Card Number: </label>
-          <input type="text" />
+          <input type="text" required/>
         </div>
         <div className="form-group">
-          <label>Full Name : </label>
-          <input type="text" />
+          <label>Full Name on card: </label>
+          <input type="text" required/>
         </div>
         <div className="form-group">
           <label>CVV Number : </label>
-          <input type="text" />
+          <input type="text" required/>
         </div>
         <button className="confirm-button">Confirm</button>
         {error && <div className="error">{error}</div>}
