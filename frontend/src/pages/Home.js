@@ -88,6 +88,68 @@ const Home = () => {
             </div>
           </div>
         </div>
+
+        <div className="w-full md:w-1/2 p-6 flex flex-col flex-grow flex-shrink">
+          <div className="flex-1 bg-white rounded-t rounded-b-none overflow-hidden shadow">
+            <a
+              href="#"
+              className="flex flex-wrap no-underline hover:no-underline"
+            >
+              <div className="w-full font-bold text-xl text-gray-800 px-6 p-8 pb-4">
+                Pursue your passion
+              </div>
+              <p className="text-gray-800 text-base px-6 mb-5">
+                This API is designed to collect image data gathered by NASA's
+                Curiosity, Opportunity, and Spirit rovers on Mars and make it
+                more easily available to other developers, educators, and
+                citizen scientists. Each rover has its own set of photos stored
+                in the database, which can be queried separately. There are
+                several possible queries that can be made against the API.
+                Photos are organized by the sol (Martian rotation or day) on
+                which they were taken, counting up from the rover's landing
+                date.
+              </p>
+            </a>
+          </div>
+          <div className="flex-none mt-auto bg-white rounded-b rounded-t-none overflow-hidden shadow p-6">
+            <div className="flex items-center justify-start">
+              <button className="mx-auto text-white lg:mx-0 bg-gray-800 hover:underline gradient font-bold rounded-full my-6 py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out">
+                View
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div className="w-full md:w-1/2 p-6 flex flex-col flex-grow flex-shrink">
+          <div className="flex-1 bg-white rounded-t rounded-b-none overflow-hidden shadow">
+            <a
+              href="#"
+              className="flex flex-wrap no-underline hover:no-underline"
+            >
+              <div className="w-full font-bold text-xl text-gray-800 px-6 p-8 pb-4">
+                Start Your Career Today
+              </div>
+              <p className="text-gray-800 text-base px-6 mb-5">
+                This API is designed to collect image data gathered by NASA's
+                Curiosity, Opportunity, and Spirit rovers on Mars and make it
+                more easily available to other developers, educators, and
+                citizen scientists. Each rover has its own set of photos stored
+                in the database, which can be queried separately. There are
+                several possible queries that can be made against the API.
+                Photos are organized by the sol (Martian rotation or day) on
+                which they were taken, counting up from the rover's landing
+                date.
+              </p>
+            </a>
+          </div>
+          <div className="flex-none mt-auto bg-white rounded-b rounded-t-none overflow-hidden shadow p-6">
+            <div className="flex items-center justify-start">
+              <button className="mx-auto text-white lg:mx-0 bg-gray-800 hover:underline gradient font-bold rounded-full my-6 py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out">
+                View
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );

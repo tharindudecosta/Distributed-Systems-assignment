@@ -155,7 +155,19 @@ const AllPayments = () => {
         </thead>
         <tbody style={{ background: "pink" }}>
           {paymentResponse &&
-            paymentResponse.map((payment, index) => (
+            paymentResponse
+            .filter((enrollment) => {
+                if (search === "") {
+                  return enrollment;
+                } else if (
+                  enrollment._id.toLowerCase().includes(search.toLowerCase()) ||
+                  enrollment.course.toLowerCase().toLowerCase().includes(search.toLowerCase()) ||
+                  enrollment.student.toLowerCase().includes(search.toLowerCase()) 
+                ) {
+                  return enrollment;
+                }
+              })
+            .map((payment, index) => (
               <tr
                 key={index}
                 className={index % 2 === 0 ? "bg-purple-400" : ""}

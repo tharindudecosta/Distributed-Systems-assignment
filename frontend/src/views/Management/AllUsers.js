@@ -135,7 +135,20 @@ const AllUsers = () => {
         </thead>
         <tbody style={{ background: "pink" }}>
           {users &&
-            users.map((user, index) => (
+            users
+            .filter((enrollment) => {
+                if (search === "") {
+                  return enrollment;
+                } else if (
+                  enrollment._id.toLowerCase().includes(search.toLowerCase()) ||
+                  enrollment.name.toLowerCase().toLowerCase().includes(search.toLowerCase()) ||
+                  enrollment.phone.toLowerCase().includes(search.toLowerCase()) ||
+                  enrollment.role.toLowerCase().includes(search.toLowerCase()) 
+                ) {
+                  return enrollment;
+                }
+              })
+            .map((user, index) => (
               <tr
                 key={index}
                 className={index % 2 === 0 ? "bg-purple-400" : ""}

@@ -7,6 +7,7 @@ import { useParams } from "react-router-dom";
 import "./CoursePurchase.css"; // Import CSS file for styling
 import emailjs from "@emailjs/browser";
 import swal from "sweetalert2";
+import CircularProgress from "@mui/material/CircularProgress";
 
 const CoursePurchase = () => {
   const [name, setName] = useState("");
@@ -17,7 +18,8 @@ const CoursePurchase = () => {
   const [fileUrl, setFileUrl] = useState(null);
 
   const [error, setError] = useState(null);
-  const [emptyFields, setEmptyFields] = useState([]);
+
+  const [isUploading, setIsUploading] = useState(false);
 
   const { id } = useParams();
 
@@ -41,6 +43,7 @@ const CoursePurchase = () => {
       studentId: studentId,
       courseId: id,
     };
+    setIsUploading(true);
 
     try {
       const response = await axios.post(
@@ -72,6 +75,8 @@ const CoursePurchase = () => {
       }
     } catch (error) {
       console.error("Error:", error);
+    } finally {
+      setIsUploading(false);
     }
   };
 
@@ -189,6 +194,8 @@ const CoursePurchase = () => {
               <input type="text" required />
             </div>
             <button className="confirm-button">Confirm</button>
+            {isUploading && <CircularProgress />}{" "}
+
             {error && <div className="error">{error}</div>}
           </form>
         </div>

@@ -47,6 +47,23 @@ const Navbar = () => {
                       About
                     </a>
                   </li>
+                  <li>
+                    {" "}
+                    <a
+                      href="/allcourses"
+                      className="block px-4 py-2 text-sm text-white hover:bg-gray-700"
+                    >
+                      All Courses
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="/stucourse"
+                      className="block px-4 py-2 text-sm text-white hover:bg-gray-700"
+                    >
+                      All Courses Student
+                    </a>
+                  </li>
                   <li className="relative dropdown">
                     <a
                       href="#"
