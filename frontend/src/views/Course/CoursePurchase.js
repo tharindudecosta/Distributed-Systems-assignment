@@ -7,6 +7,7 @@ import { useParams } from "react-router-dom";
 import "./CoursePurchase.css"; // Import CSS file for styling
 import emailjs from "@emailjs/browser";
 import swal from "sweetalert2";
+import Paypal from "../../components/Paypal";
 
 const CoursePurchase = () => {
   const [name, setName] = useState("");
@@ -19,6 +20,7 @@ const CoursePurchase = () => {
   const [error, setError] = useState(null);
   const [emptyFields, setEmptyFields] = useState([]);
 
+  const [paypalCheckout, setPaypalCheckout] = useState(false);
   const { id } = useParams();
 
   const user = JSON.parse(localStorage.getItem("user"));
@@ -176,21 +178,38 @@ const CoursePurchase = () => {
           >
             <h3>Purchase a New Course</h3>
             <br></br>
-            <div className="form-group">
-              <label>Card Number: </label>
-              <input type="text" required />
-            </div>
-            <div className="form-group">
-              <label>Full Name on card: </label>
-              <input type="text" required />
-            </div>
-            <div className="form-group">
-              <label>CVV Number : </label>
-              <input type="text" required />
-            </div>
-            <button className="confirm-button">Confirm</button>
+            {!paypalCheckout ? (
+              <>
+                <div className="form-group">
+                  <label>Card Number: </label>
+                  <input type="text" required />
+                </div>
+                <div className="form-group">
+                  <label>Full Name on card: </label>
+                  <input type="text" required />
+                </div>
+                <div className="form-group">
+                  <label>CVV Number : </label>
+                  <input type="text" required />
+                </div>{" "}
+                <button className="confirm-button">Confirm Card</button>
+              </>
+            ) : (
+              <div>
+                <Paypal />
+              </div>
+            )}
+
             {error && <div className="error">{error}</div>}
           </form>
+          <button
+            className="update-button"
+            onClick={() => {
+              setPaypalCheckout(!paypalCheckout);
+            }}
+          >
+            Switch Method
+          </button>
         </div>
 
         <ToastContainer />
