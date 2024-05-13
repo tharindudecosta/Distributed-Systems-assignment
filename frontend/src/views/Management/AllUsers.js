@@ -1,86 +1,85 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import pdfMake from "pdfmake/build/pdfmake";
 import pdfFonts from "pdfmake/build/vfs_fonts";
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 const AllUsers = () => {
-    const [users, setusers] = useState();
-    const [search, setSearch] = useState("");
-  
-  
-    const createPDF = (users) => {
-      const documentDefinition = {
-        content: [
-          { text: "User Records", style: "header" },
-          {
-            table: {
-              headerRows: 1,
-              widths: ["*", "*", "*", "*", "*", "*", "*", "*"],
-              body: [
-                [
-                  { text: "User Id", style: "tableHeader" },
-                  { text: "Name", style: "tableHeader" },
-                  { text: "Phone", style: "tableHeader" },
-                  { text: "Email", style: "tableHeader" },
-                  { text: "Role", style: "tableHeader" },
-                ],
-                ...users
-                  .filter((payment) => {
-                    if (search === "") {
-                      return payment;
-                    } else if (
-                      payment._id.toLowerCase().includes(search.toLowerCase()) ||
-                      payment.student
-                        .toLowerCase()
-                        .includes(search.toLowerCase()) ||
-                      payment.course.toLowerCase().includes(search.toLowerCase())
-                    ) {
-                      return payment;
-                    }
-                  })
-                  .map((payment) => [
-                    { text: payment._id, style: "tableCell" },
-                    { text: payment.course, style: "tableCell" },
-                    { text: payment.student, style: "tableCell" },
-                    { text: payment.amount, style: "tableCell" },
-                    { text: payment.status, style: "tableCell" },
-                    { text: payment.createdAt, style: "tableCell" },
-                  ]),
+  const [users, setusers] = useState();
+  const [search, setSearch] = useState("");
+
+  const createPDF = (users) => {
+    const documentDefinition = {
+      content: [
+        { text: "User Records", style: "header" },
+        {
+          table: {
+            headerRows: 1,
+            widths: ["*", "*", "*", "*", "*","*"],
+            body: [
+              [
+                { text: "User Id", style: "tableHeader" },
+                { text: "Name", style: "tableHeader" },
+                { text: "Phone", style: "tableHeader" },
+                { text: "Email", style: "tableHeader" },
+                { text: "Role", style: "tableHeader" },
+                { text: "Date Joined", style: "tableHeader" },
               ],
-            },
+              ...users
+                .filter((user) => {
+                  if (search === "") {
+                    return user;
+                  } else if (
+                    user._id.toLowerCase().includes(search.toLowerCase()) ||
+                    user.name.toLowerCase().includes(search.toLowerCase()) ||
+                    user.email.toLowerCase().includes(search.toLowerCase()) ||
+                    user.role.toLowerCase().includes(search.toLowerCase())
+                  ) {
+                    return user;
+                  }
+                })
+                .map((user) => [
+                  { text: user._id, style: "tableCell" },
+                  { text: user.name, style: "tableCell" },
+                  { text: user.phone, style: "tableCell" },
+                  { text: user.email, style: "tableCell" },
+                  { text: user.role, style: "tableCell" },
+                  { text: user.createdAt, style: "tableCell" },
+                ]),
+            ],
           },
-        ],
-        pageSize: "A3",
-        pageSize: {
-          width: 1500,
-          height: 800,
         },
-      };
-  
-      const pdfDocGenerator = pdfMake.createPdf(documentDefinition);
-      pdfDocGenerator.download("Payment_Data.pdf");
+      ],
+      pageSize: "A3",
+      pageSize: {
+        width: 1500,
+        height: 800,
+      },
     };
-  
-    useEffect(() => {
-      const fetchCourses = async () => {
-        try {
-          const response = await axios.get(
-            `http://localhost:4000/api/userSevice/users/allUsers`
+
+    const pdfDocGenerator = pdfMake.createPdf(documentDefinition);
+    pdfDocGenerator.download("User_Data.pdf");
+  };
+
+  useEffect(() => {
+    const fetchCourses = async () => {
+      try {
+        const response = await axios.get(
+          `http://localhost:4000/api/userSevice/users/allUsers`
         );
-          console.log(response);
-  
-          if (response.status == 200) {
-            setusers(response.data);
-          }
-        } catch (error) {
-          console.error("Error fetching data:", error);
+        console.log(response);
+
+        if (response.status == 200) {
+          setusers(response.data);
         }
-      };
-  
-      fetchCourses();
-    }, []);
-  
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchCourses();
+  }, []);
+
   return (
     <div className="cont123">
       <input
@@ -133,26 +132,38 @@ const AllUsers = () => {
             </th>
           </tr>
         </thead>
-        <tbody style={{ background: "pink" }}>
+        <tbody >
           {users &&
-            users.map((user, index) => (
-              <tr
-                key={index}
-                className={index % 2 === 0 ? "bg-purple-400" : ""}
-              >
-                <td className="py-4 px-6 text-center">{index + 1}</td>
-                <td className="py-4 px-6">{user._id}</td>
-                <td className="py-4 px-6">{user.name}</td>
-                <td className="py-4 px-6">{user.email}</td>
-                <td className="py-4 px-6">{user.phone}</td>
-                <td className="py-4 px-6">{user.role}</td>
-                <td className="py-4 px-6">{user.createdAt}</td>
-              </tr>
-            ))}
+            users
+              .filter((user) => {
+                if (search === "") {
+                  return user;
+                } else if (
+                  user._id.toLowerCase().includes(search.toLowerCase()) ||
+                  user.name.toLowerCase().includes(search.toLowerCase()) ||
+                  user.email.toLowerCase().includes(search.toLowerCase()) ||
+                  user.role.toLowerCase().includes(search.toLowerCase())
+                ) {
+                  return user;
+                }
+              })
+              .map((user, index) => (
+                <tr
+                  key={index}
+                >
+                  <td className="py-4 px-6 text-center">{index + 1}</td>
+                  <td className="py-4 px-6 text-center">{user._id}</td>
+                  <td className="py-4 px-6 text-center">{user.name}</td>
+                  <td className="py-4 px-6 text-center">{user.email}</td>
+                  <td className="py-4 px-6 text-center">{user.phone}</td>
+                  <td className="py-4 px-6 text-center">{user.role}</td>
+                  <td className="py-4 px-6 text-center">{user.createdAt}</td>
+                </tr>
+              ))}
         </tbody>
       </table>
     </div>
-  )
-}
+  );
+};
 
-export default AllUsers
+export default AllUsers;

@@ -36,10 +36,10 @@ const AllPayments = () => {
                     return payment;
                   } else if (
                     payment._id.toLowerCase().includes(search.toLowerCase()) ||
-                    payment.student
+                    payment.course
                       .toLowerCase()
                       .includes(search.toLowerCase()) ||
-                    payment.course.toLowerCase().includes(search.toLowerCase())
+                    payment.student.toLowerCase().includes(search.toLowerCase())
                   ) {
                     return payment;
                   }
@@ -155,20 +155,32 @@ const AllPayments = () => {
         </thead>
         <tbody style={{ background: "pink" }}>
           {paymentResponse &&
-            paymentResponse.map((payment, index) => (
-              <tr
-                key={index}
-                className={index % 2 === 0 ? "bg-purple-400" : ""}
-              >
-                <td className="py-4 px-6 text-center">{index + 1}</td>
-                <td className="py-4 px-6">{payment._id}</td>
-                <td className="py-4 px-6">{payment.course}</td>
-                <td className="py-4 px-6">{payment.student}</td>
-                <td className="py-4 px-6">{payment.amount}</td>
-                <td className="py-4 px-6">{payment.status}</td>
-                <td className="py-4 px-6">{payment.createdAt}</td>
-              </tr>
-            ))}
+            paymentResponse
+              .filter((payment) => {
+                if (search === "") {
+                  return payment;
+                } else if (
+                  payment._id.toLowerCase().includes(search.toLowerCase()) ||
+                  payment.course.toLowerCase().includes(search.toLowerCase()) ||
+                  payment.student.toLowerCase().includes(search.toLowerCase())
+                ) {
+                  return payment;
+                }
+              })
+              .map((payment, index) => (
+                <tr
+                  key={index}
+                  className={index % 2 === 0 ? "bg-purple-400" : ""}
+                >
+                  <td className="py-4 px-6 text-center">{index + 1}</td>
+                  <td className="py-4 px-6">{payment._id}</td>
+                  <td className="py-4 px-6">{payment.course}</td>
+                  <td className="py-4 px-6">{payment.student}</td>
+                  <td className="py-4 px-6">{payment.amount}</td>
+                  <td className="py-4 px-6">{payment.status}</td>
+                  <td className="py-4 px-6">{payment.createdAt}</td>
+                </tr>
+              ))}
         </tbody>
       </table>
     </div>
