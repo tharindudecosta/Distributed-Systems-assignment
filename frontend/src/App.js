@@ -7,6 +7,8 @@ import Home from "./pages/Home";
 import Login from "./views/Login/Login";
 import RegisterStudent from "./views/Login/RegisterStudent";
 import RegisterUser from "./views/Login/RegisterUser";
+import UpdateProfile from "./views/Login/UpdateProfile";
+
 //import Training
 import CourseForm from "./views/Course/CourseForm";
 import AllCourses from "./views/Course/AllCourses";
@@ -133,6 +135,15 @@ function App() {
               element={
                 <Auth>
                   <AllUsers />
+                </Auth>
+              }
+            />
+
+            <Route
+              path="/updateProfile"
+              element={
+                <Auth>
+                  <UpdateProfile />
                 </Auth>
               }
             />

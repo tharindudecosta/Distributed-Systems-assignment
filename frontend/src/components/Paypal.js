@@ -17,17 +17,17 @@ const Paypal = () => {
                 },
               },
             ],
-          })
+          });
         },
-        onApprove: async (data, actions)=>{
-            console.log("Order success");
+        onApprove: async (data, actions) => {
+          console.log("Order success");
         },
-        onError: (err) =>{
-            console.log(err);
-        }
+        onError: (err) => {
+          console.log(err);
+        },
       })
       .render(paypal.current);
-  });
+  }, []);
   return (
     <div>
       <div ref={paypal}></div>

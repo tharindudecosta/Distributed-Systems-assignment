@@ -123,6 +123,12 @@ const Navbar = () => {
                     ""
                   )}
 
+                  <a
+                    href="/updateProfile"
+                    className="block px-4 py-2 text-sm text-white hover:bg-gray-700"
+                  >
+                    Profile
+                  </a>
                   <button
                     onClick={logout}
                     className="bg-transparent hover:bg-red-500 text-white font-semibold hover:text-white px-4 border-2 border-red-500 hover:border-transparent rounded"
