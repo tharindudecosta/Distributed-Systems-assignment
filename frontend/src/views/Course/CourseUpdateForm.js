@@ -123,7 +123,7 @@ const CourseUpdateForm = () => {
           console.log(response);
           swal.fire({
             title: "Good job!",
-            text: "User Registered Successfully!",
+            text: "Course updated Successfully!",
             icon: "success",
           });
         }
