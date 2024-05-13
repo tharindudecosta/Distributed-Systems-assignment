@@ -111,9 +111,7 @@ const CoursesView = ({ course }) => {
             <a href={"/coursePurchase/" + course._id}>
               <button className="buy-button">Buy now</button>
             </a>
-            {role == "student" ? (
-              ""
-            ) : (
+            {role == "admin" ? (
               <div>
                 <button className="delete-button" onClick={handleClick}>
                   Delete
@@ -122,6 +120,8 @@ const CoursesView = ({ course }) => {
                   <button className="update-button">Update</button>
                 </a>
               </div>
+            ) : (
+              ""
             )}
           </div>
         </div>

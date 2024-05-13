@@ -73,7 +73,7 @@ const CourseForm = () => {
           if (response.status === 201) {
             swal.fire({
               title: "Good job!",
-              text: "User Registered Successfully!",
+              text: "Course Created Successfully!",
               icon: "success",
             });
             setName("")

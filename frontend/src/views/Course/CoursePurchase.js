@@ -107,9 +107,8 @@ const CoursePurchase = () => {
     fetchCourseInfo();
   }, []);
 
-  const sendEmail = (e) => {
-    e.preventDefault();
-
+  const sendEmail = () => {
+    
     emailjs
       .send(
         "service_pg5ngyf",

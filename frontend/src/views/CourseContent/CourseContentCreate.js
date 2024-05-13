@@ -22,6 +22,7 @@ const CourseContentCreate = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setEmptyFields([])
     if (!name || !description || !video) {
       swal.fire({
         title: "Oops!",
@@ -123,7 +124,7 @@ const CourseContentCreate = () => {
             />
           </div>
           <div className="form-group">
-            <label className="form-label">Select Video :</label>
+            <label className="form-label">Select File :</label>
             <input
               type="file"
               accept="video/*, audio/*"
