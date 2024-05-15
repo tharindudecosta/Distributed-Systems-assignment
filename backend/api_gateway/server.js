@@ -16,18 +16,18 @@ app.use((req, res, next) => {
   next()
 })
 
-app.use('/api/userSevice',proxy('http://localhost:4001'))
-app.use('/api/courseService',proxy('http://localhost:4002'))
-app.use('/api/courseContentService',proxy('http://localhost:4003'))
-app.use('/api/enrollmentService',proxy('http://localhost:4004'))
-app.use('/api/paymentService',proxy('http://localhost:4005'))
+// app.use('/api/userSevice',proxy('http://localhost:4001'))
+// app.use('/api/courseService',proxy('http://localhost:4002'))
+// app.use('/api/courseContentService',proxy('http://localhost:4003'))
+// app.use('/api/enrollmentService',proxy('http://localhost:4004'))
+// app.use('/api/paymentService',proxy('http://localhost:4005'))
 
 
-// app.use('/api/userSevice',proxy('http://user_service:4001'))
-// app.use('/api/courseService',proxy('http://course_service:4002'))
-// app.use('/api/courseContentService',proxy('http://course_content_service:4003'))
-// app.use('/api/enrollmentService',proxy('http://enrollement_service:4004'))
-// app.use('/api/paymentService',proxy('http://payment_service:4005'))
+app.use('/api/userSevice',proxy('http://user_service:4001'))
+app.use('/api/courseService',proxy('http://course_service:4002'))
+app.use('/api/courseContentService',proxy('http://course_content_service:4003'))
+app.use('/api/enrollmentService',proxy('http://enrollement_service:4004'))
+app.use('/api/paymentService',proxy('http://payment_service:4005'))
 
 // routes
 app.get('/', (req, res) => {
