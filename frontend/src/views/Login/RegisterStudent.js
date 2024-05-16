@@ -88,7 +88,7 @@ const RegisterStudent = () => {
           to_name: name,
           from_name: "Easy learn",
           message:"You have successfully created your account.",
-          to_email: "tharindunethmal@gmail.com",
+          to_email: "Sasindu0205@gmail.com",
         },
 
         "YZdoo0Nr0so-f-j-Y"

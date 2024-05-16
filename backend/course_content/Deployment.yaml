@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: course_content_service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: course_content_service
+  template:
+    metadata:
+      labels:
+        app: course_content_service
+    spec:
+      containers:
+      - name: course_content_service
+        image: tharindudecosta/course_content_service:v1.0
+        ports:
+        - containerPort: 4003
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: course_content_service
+spec:
+  selector:
+    app: course_content_service
+  ports:
+  - protocol: TCP
+    port: 4003
+    targetPort: 4003

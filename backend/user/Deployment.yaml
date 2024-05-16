@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: user_service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: user_service
+  template:
+    metadata:
+      labels:
+        app: user_service
+    spec:
+      containers:
+      - name: user_service
+        image: tharindudecosta/user_service:v1.0
+        ports:
+        - containerPort: 4001
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: user_service
+spec:
+  selector:
+    app: user_service
+  ports:
+  - protocol: TCP
+    port: 4001
+    targetPort: 4001
